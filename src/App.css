@@ -1,9 +1,26 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* overflow: hidden; Add this to prevent horizontal scrollbar */
+}
+
+
+
 #root {
-  max-width: 1280px;
+  width: 100%;
+  height: 100vh;
+  max-width: auto;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  /* background-image: url('https://cdn12.picryl.com/photo/2016/12/31/eye-shadow-structure-fund-backgrounds-textures-570815-1024.jpg'); */
+  background-size: cover;
 }
+
+
+
+
 
 .logo {
   height: 6em;
