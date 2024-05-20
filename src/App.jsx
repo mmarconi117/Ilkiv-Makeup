@@ -3,20 +3,28 @@ import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
 import fielddressImage from './images/fielddress.jpg';
 import gypImage from './images/gyp.jpg';
+import inna from './images/inna.jpg'
 import { setCurrentImageIndex } from './actions/currentAction';
 import './App.css';
+
+// Array of images
+const images = [
+  fielddressImage,
+  gypImage,
+  // Add other images here
+];
 
 function App() {
   const currentImageIndex = useSelector(state => state.current.currentImageIndex);
   const dispatch = useDispatch();
 
   const handlePreviousImage = () => {
-    const newIndex = currentImageIndex === 0 ? 1 : 0; // If currentImageIndex is 0, set newIndex to 1, otherwise set it to 0
+    const newIndex = currentImageIndex === 0 ? images.length - 1 : currentImageIndex - 1;
     dispatch(setCurrentImageIndex(newIndex));
   };
 
   const handleNextImage = () => {
-    const newIndex = currentImageIndex === 1 ? 0 : 1; // If currentImageIndex is 1, set newIndex to 0, otherwise set it to 1
+    const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
     dispatch(setCurrentImageIndex(newIndex));
   };
 
@@ -24,12 +32,12 @@ function App() {
     <>
       <Header />
       <div className='carousel'>
-        {/* Previous button */}
         <button className='prev' onClick={handlePreviousImage}>&#10094;</button>
-        {/* Display the images and handle click events */}
-        <img src={currentImageIndex === 0 ? fielddressImage : gypImage} alt={currentImageIndex === 0 ? "Field Dress" : "Gyp"} onClick={() => handleImageClick(currentImageIndex === 0 ? 0 : 1)} />
-        {/* Next button */}
+        <img src={images[currentImageIndex]} alt={`Image ${currentImageIndex + 1}`} />
         <button className='next' onClick={handleNextImage}>&#10095;</button>
+      </div>
+      <div className='me'>
+        <img src={inna} alt='inna' />
       </div>
     </>
   );
