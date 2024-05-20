@@ -66,9 +66,17 @@ function App() {
           <button className="next" onClick={handleNextImage}>&#10095;</button>
         </div>
       </div>
-      <div className="me">
-        <img src={inna} alt="inna" />
+
+
+      <div className='center-container'>
+        <div className="me">
+          <img src={inna} alt="inna" />
+        </div>
+        <div className="description-box">
+          <p>Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an appointment or contact me via email!</p>
+        </div>
       </div>
+
     </>
   );
 }
