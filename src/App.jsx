@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
+import Form from './components/Form';
 import fielddressImage from './images/fielddress.jpg';
 import gypImage from './images/gyp.jpg';
 import inna from './images/inna.jpg';
-import innaback from './images/innabackground.jpeg'
+import innaback from './images/innabackground.jpeg';
 import { setCurrentImageIndex } from './actions/currentAction';
+import { showForm, hideForm } from './actions/formAction';
 import './App.css';
 
-// Array of images
 const images = [
   fielddressImage,
   gypImage,
@@ -18,6 +19,7 @@ const images = [
 function App() {
   const [autoplayInterval, setAutoplayInterval] = useState(null);
   const currentImageIndex = useSelector(state => state.current.currentImageIndex);
+  const isFormVisible = useSelector(state => state.form.isFormVisible);
   const dispatch = useDispatch();
 
   const handlePreviousImage = () => {
@@ -31,15 +33,13 @@ function App() {
   };
 
   useEffect(() => {
-    // Start autoplay when component mounts
     const interval = setInterval(() => {
       const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
       dispatch(setCurrentImageIndex(newIndex));
-    }, 5000); // Change the interval as needed (e.g., 5000 milliseconds for 5 seconds)
+    }, 5000);
 
     setAutoplayInterval(interval);
 
-    // Clean up the interval when component unmounts
     return () => {
       clearInterval(autoplayInterval);
     };
@@ -53,8 +53,16 @@ function App() {
     const interval = setInterval(() => {
       const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
       dispatch(setCurrentImageIndex(newIndex));
-    }, 5000); // Change the interval as needed
+    }, 5000);
     setAutoplayInterval(interval);
+  };
+
+  const handleFormToggle = () => {
+    if (isFormVisible) {
+      dispatch(hideForm());
+    } else {
+      dispatch(showForm());
+    }
   };
 
   return (
@@ -68,7 +76,6 @@ function App() {
         </div>
       </div>
 
-
       <div className='center-container'>
         <div className="me">
           <img src={inna} alt="inna" />
@@ -76,8 +83,18 @@ function App() {
         <div className="description-box">
           <p>Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an appointment or contact me via email!</p>
         </div>
+        <div className='form-button'>
+          <button onClick={handleFormToggle}>{isFormVisible ? "Close Form" : "Open Form"}</button>
+        </div>
       </div>
 
+      {isFormVisible && (
+        <div className='form-container'>
+          <div className='form'>
+            <Form />
+          </div>
+        </div>
+      )}
     </>
   );
 }
