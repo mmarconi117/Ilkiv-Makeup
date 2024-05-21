@@ -1,14 +1,27 @@
 import React, { useState } from "react";
+import axios from "axios"; // Import Axios for making HTTP requests
 
 export default function Form() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Form submitted:", { name, email, message });
-        // Add form submission logic here
+
+        try {
+            const response = await axios.post("/api/send-email", {
+                name,
+                email,
+                message
+            });
+
+            console.log("Email sent successfully:", response.data);
+            // Optionally, show a success message to the user
+        } catch (error) {
+            console.error("Error sending email:", error);
+            // Optionally, show an error message to the user
+        }
     };
 
     return (
