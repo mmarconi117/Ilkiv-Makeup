@@ -20,7 +20,12 @@ body, html {
   overflow: hidden;
   margin: 0; /* Remove any default margin */
   padding: 0; /* Remove any default padding */
+  background-image: url('./images/innabackground.jpeg'); /* Specify the path to your image */
+  background-size: cover; /* Make sure the image covers the entire carousel */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
 }
+
 
 .carousel img {
   width: 100%; /* Ensure the image fills the entire width of the container */
@@ -58,7 +63,7 @@ body, html {
 }
 
 .center-container {
-  background-color: pink;
+  background-color: rgb(59, 139, 43);
   display: flex;
   flex-direction: column;
   align-items: center;

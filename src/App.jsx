@@ -4,6 +4,7 @@ import Header from './components/Header';
 import fielddressImage from './images/fielddress.jpg';
 import gypImage from './images/gyp.jpg';
 import inna from './images/inna.jpg';
+import innaback from './images/innabackground.jpeg'
 import { setCurrentImageIndex } from './actions/currentAction';
 import './App.css';
 
