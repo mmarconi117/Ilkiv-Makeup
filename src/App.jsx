@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
 import Form from './components/Form';
+import Footer from './components/Footer'
 import fielddressImage from './images/fielddress.jpg';
 import gypImage from './images/gyp.jpg';
 import inna from './images/inna.jpg';
@@ -95,6 +96,10 @@ function App() {
           </div>
         </div>
       )}
+
+      <div className='footer'>
+        <Footer />
+      </div>
     </>
   );
 }

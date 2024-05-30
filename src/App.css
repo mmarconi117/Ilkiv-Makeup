@@ -63,7 +63,7 @@ body, html {
 }
 
 .center-container {
-  background-color: rgb(59, 139, 43);
+  background-color: rgb(15, 5, 50);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,7 +86,7 @@ body, html {
   padding: 20px; /* Add padding for spacing and style */
   background-color: white; /* Background color for the box */
   text-align: center; /* Center the text within the box */
-  background-color: pink;
+  background-color: rgb(193, 162, 167);
 }
 
 /* App.css */
