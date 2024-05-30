@@ -101,6 +101,8 @@ body, html {
   padding: 20px; /* Add padding for spacing and style */
   text-align: center; /* Center the text within the box */
   font-size: x-large;
+  color: white;
+  font-size: xx-large;
 }
 
 /* App.css */

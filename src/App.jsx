@@ -83,7 +83,6 @@ function App() {
             </div>
             <div className="description-box">
                 <p>Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an appointment or contact me via email!
-                  jnefivneivneinv eivneovn eivneiv jefof ve ek 4 j4g ikg k env jv i ifn
                 </p>
             </div>
             <div className='form-button'>
