@@ -65,12 +65,19 @@ body, html {
 .center-container {
   background-image: url('./images/innaworking.jpg');
   background-repeat: no-repeat;
-  background-size: cover; /* or use 'contain' depending on your needs */
-  background-position: 0% center; /* Position the background image at the left */
+  background-position: center; /* Center the background image */
+  background-size: cover; /* Cover the entire container */
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+  min-width: none;
 }
+
+
+
+
+
 
 
 
@@ -79,13 +86,14 @@ body, html {
 .me {
   display: flex;
   justify-content: center;
-  margin-top: 20px; /* Adjust the margin as needed */
+  margin-top: 250px; /* Adjust the margin as needed */
 }
 
 .me img {
   width: 50%; /* Adjust the width as needed */
   height: auto; /* Maintain the aspect ratio */
 }
+
 
 .description-box {
   width: 50%; /* Adjust the width as needed */
@@ -111,7 +119,7 @@ body, html {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-bottom: 30px;
+  margin-top: 230px;
 }
 
 .open-form-button:hover {
