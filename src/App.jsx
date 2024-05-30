@@ -78,16 +78,18 @@ function App() {
       </div>
 
       <div className='center-container'>
-        <div className="me">
-          <img src={inna} alt="inna" />
+            <div className="me">
+                <img src={inna} alt="inna" />
+            </div>
+            <div className="description-box">
+                <p>Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an appointment or contact me via email!</p>
+            </div>
+            <div className='form-button'>
+                <button className="open-form-button" onClick={handleFormToggle}>
+                    {isFormVisible ? "Close Form" : "Open Form"}
+                </button>
+            </div>
         </div>
-        <div className="description-box">
-          <p>Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an appointment or contact me via email!</p>
-        </div>
-        <div className='form-button'>
-          <button onClick={handleFormToggle}>{isFormVisible ? "Close Form" : "Open Form"}</button>
-        </div>
-      </div>
 
       {isFormVisible && (
         <div className='form-container'>
