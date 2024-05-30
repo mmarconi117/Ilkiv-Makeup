@@ -63,14 +63,17 @@ body, html {
 }
 
 .center-container {
-  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVwWWUpR2JYq-EQnbNMR3GVH4un9JJk03nWQ&s');
+  background-image: url('./images/innaworking.jpg');
   background-repeat: no-repeat;
   background-size: cover; /* or use 'contain' depending on your needs */
-  background-position: center;
+  background-position: 0% center; /* Position the background image at the left */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+
+
 
 
 .me {

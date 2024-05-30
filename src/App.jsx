@@ -79,10 +79,12 @@ function App() {
 
       <div className='center-container'>
             <div className="me">
-                <img src={inna} alt="inna" />
+                {/* <img src={} alt="inna" /> */}
             </div>
             <div className="description-box">
-                <p>Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an appointment or contact me via email!</p>
+                <p>Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an appointment or contact me via email!
+                  jnefivneivneinv eivneovn eivneiv jefof ve ek 4 j4g ikg k env jv i ifn
+                </p>
             </div>
             <div className='form-button'>
                 <button className="open-form-button" onClick={handleFormToggle}>
