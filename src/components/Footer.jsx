@@ -3,7 +3,7 @@ import './styles/styles.css';
 
 function Footer() {
     return (
-        <footer className="bg-green-900 text-white py-10 mt-0 overflow-x-hidden">
+        <footer className="bg-green-900 text-white py-7 mt-0 overflow-x-hidden">
             <div className="container mx-auto text-center">
                 <div className="text-4xl mb-2 ml-4 mr-6">Contact</div>
                 <div className="text-lg mb-4">ilkivmakeup@gmail.com</div>
