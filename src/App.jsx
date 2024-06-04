@@ -103,6 +103,7 @@ function App() {
 
       <div className='undercar-container'>
         <div className='undercar-title'>𝔹𝕖𝕒𝕦𝕥𝕪 𝕒𝕥 𝕚𝕥𝕤 𝕗𝕚𝕟𝕖𝕤𝕥</div>
+        <div className='undercartitle-container'>
         <div className='undercar-left'>
           <h1>Highly Trained & Skilled Beauty Professional</h1>
           <p className='leftp'>Si Beauty Bar brings the luxury of professional beauty services directly to your location,
@@ -112,6 +113,7 @@ function App() {
           From exquisite makeup artistry to rejuvenating skincare treatments, we specialize in providing unparalleled
           pampering that celebrates your unique essence and empowers you to shine with radiance.
           </p>
+         </div>
         </div>
       </div>
 
