@@ -69,14 +69,6 @@ function App() {
   return (
     <>
       <Header />
-      <div className="carousel-container" onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay}>
-        <div className="carousel">
-          <button className="prev" onClick={handlePreviousImage}>&#10094;</button>
-          <img src={images[currentImageIndex]} alt={`Image ${currentImageIndex + 1}`} />
-          <button className="next" onClick={handleNextImage}>&#10095;</button>
-        </div>
-      </div>
-
       <div className='center-container'>
             <div className="me">
                 {/* <img src={} alt="inna" /> */}
@@ -99,6 +91,17 @@ function App() {
           </div>
         </div>
       )}
+
+
+      <div className="carousel-container" onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay}>
+        <div className="carousel">
+          <button className="prev" onClick={handlePreviousImage}>&#10094;</button>
+          <img src={images[currentImageIndex]} alt={`Image ${currentImageIndex + 1}`} />
+          <button className="next" onClick={handleNextImage}>&#10095;</button>
+        </div>
+      </div>
+
+
 
       <div className='footer'>
         <Footer />
