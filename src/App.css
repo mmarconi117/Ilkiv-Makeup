@@ -154,6 +154,7 @@ body, html {
 .undercar-left {
   flex: 1; /* Occupy all available space in the container */
   padding: 0 20px; /* Add padding to the left and right */
+  padding-left: 75px;
 }
 
 .undercar-middle {
