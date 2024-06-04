@@ -141,11 +141,34 @@ body, html {
   font-size: 5rem; /* Adjust the font size to your preference */
 }
 
+.undercartitle-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items at the start of the flex container */
+}
+
+.undercartitle-container h1 {
+  /* Add styles to h1 if needed */
+}
+
+.undercar-left {
+  flex: 1; /* Occupy all available space in the container */
+  padding: 0 20px; /* Add padding to the left and right */
+}
+
+.undercar-middle {
+  flex: 1; /* Occupy all available space in the container */
+  padding: 0 20px; /* Add padding to the left and right */
+}
+
+.undercar-right {
+  flex: 1; /* Occupy all available space in the container */
+  padding: 0 20px; /* Add padding to the left and right */
+}
 
 .leftp {
   text-align: left;
   font-size: 1.2rem; /* Adjust font size as needed */
   line-height: 1.5; /* Adjust line height for better readability */
-  margin: 20px 0; /* Add margin for spacing */
-  /* Additional styling if needed */
+  margin-bottom: 20px; /* Add margin to the bottom */
 }

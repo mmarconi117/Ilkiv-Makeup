@@ -93,29 +93,30 @@ function App() {
       )}
 
 
-      <div className="carousel-container" onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay}>
-        <div className="carousel">
-          <button className="prev" onClick={handlePreviousImage}>&#10094;</button>
-          <img src={images[currentImageIndex]} alt={`Image ${currentImageIndex + 1}`} />
-          <button className="next" onClick={handleNextImage}>&#10095;</button>
-        </div>
-      </div>
+<div className='undercar-container'>
+  <div className='undercar-title'>𝔹𝕖𝕒𝕦𝕥𝕪 𝕒𝕥 𝕚𝕥𝕤 𝕗𝕚𝕟𝕖𝕤𝕥</div>
+  <div className='undercartitle-container'>
+    <div className='undercar-left'>
+      <h1>Highly Trained & Skilled Beauty Professional</h1>
+      <p className='leftp'>
+        Si Beauty Bar brings the luxury of professional beauty services directly to your location,
+        whether it's in the comfort of your own home, at a special event venue, or any other preferred setting.
+        Our dedicated team is committed to unveiling the innate beauty and individuality that defines each woman,
+        offering a personalized experience tailored to enhance your natural features and boost your confidence.
+        From exquisite makeup artistry to rejuvenating skincare treatments, we specialize in providing unparalleled
+        pampering that celebrates your unique essence and empowers you to shine with radiance.
+      </p>
+    </div>
+    <div className='undercar-middle'>
+    </div>
+    <div className='undercar-right'>
+    </div>
+  </div>
+</div>
 
-      <div className='undercar-container'>
-        <div className='undercar-title'>𝔹𝕖𝕒𝕦𝕥𝕪 𝕒𝕥 𝕚𝕥𝕤 𝕗𝕚𝕟𝕖𝕤𝕥</div>
-        <div className='undercartitle-container'>
-        <div className='undercar-left'>
-          <h1>Highly Trained & Skilled Beauty Professional</h1>
-          <p className='leftp'>Si Beauty Bar brings the luxury of professional beauty services directly to your location,
-          whether it's in the comfort of your own home, at a special event venue, or any other preferred setting.
-          Our dedicated team is committed to unveiling the innate beauty and individuality that defines each woman,
-          offering a personalized experience tailored to enhance your natural features and boost your confidence.
-          From exquisite makeup artistry to rejuvenating skincare treatments, we specialize in providing unparalleled
-          pampering that celebrates your unique essence and empowers you to shine with radiance.
-          </p>
-         </div>
-        </div>
-      </div>
+
+
+
 
 
 
