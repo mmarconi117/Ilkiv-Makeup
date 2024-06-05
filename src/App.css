@@ -140,6 +140,8 @@ body, html {
 .undercar-title {
   text-align: center;
   font-size: 5rem; /* Adjust the font size to your preference */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-style: italic;
 }
 
 .undercartitle-container {
@@ -150,6 +152,8 @@ body, html {
 
 .undercartitle-container h1 {
   /* Add styles to h1 if needed */
+  font-size: 3rem;
+  font-weight: 200;
 }
 
 .undercar-left {
@@ -173,4 +177,5 @@ body, html {
   font-size: 1.2rem; /* Adjust font size as needed */
   line-height: 1.5; /* Adjust line height for better readability */
   margin-bottom: 20px; /* Add margin to the bottom */
+  font-size: x-large;
 }
