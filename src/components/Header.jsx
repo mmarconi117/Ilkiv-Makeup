@@ -3,8 +3,8 @@ import './styles/styles.css';
 
 function Header() {
   return (
-    <header className="bg-red-900 text-white py-2 mt-0 overflow-x-hidden">
-      <h1 className="text-yellow-500 text-left pl-4 text-5xl">𝕊𝕚 𝔹𝕖𝕒𝕦𝕥𝕪 𝔹𝕒𝕣</h1>
+    <header className="bg-opacity-60 text-white py-1 mt-0 overflow-x-hidden w-full">
+      <h1 className="text-black-500 text-opacity-10 text-center pl-4 text-5xl">𝕊𝕚 𝔹𝕖𝕒𝕦𝕥𝕪 𝔹𝕒𝕣</h1>
     </header>
   );
 }

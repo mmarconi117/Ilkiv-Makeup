@@ -68,7 +68,7 @@ function App() {
 
   return (
     <>
-      <Header />
+
       <div className='center-container'>
             <div className="me">
                 {/* <img src={} alt="inna" /> */}
@@ -82,6 +82,7 @@ function App() {
                     {isFormVisible ? "Close Form" : "Open Form"}
                 </button>
             </div>
+            <Header />
         </div>
 
       {isFormVisible && (
