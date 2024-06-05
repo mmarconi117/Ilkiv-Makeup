@@ -101,13 +101,13 @@ body, html {
 
 .description-box {
   width: 50%; /* Adjust the width as needed */
-  margin-top: 0; /* Adjust the margin as needed */
+  margin-bottom: 200px; /* Adjust the margin as needed */
   padding: 20px; /* Add padding for spacing and style */
   text-align: center; /* Center the text within the box */
-  font-size: x-large;
+  font-size: xx-large; /* Adjust the font size as needed */
   color: white;
-  font-size: xx-large;
 }
+
 
 /* App.css */
 .form-button {
