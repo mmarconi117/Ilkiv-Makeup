@@ -110,7 +110,7 @@ function App() {
         </div>
         <div className='form-button'>
           <button className="open-form-button" onClick={handleFormToggle}>
-            {isFormVisible ? "Close Form" : "Open Form"}
+            {isFormVisible ? "Close Form" : "Book Now!"}
           </button>
           {isFormVisible && (
         <div className='form-container'>
