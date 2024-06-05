@@ -24,10 +24,11 @@ app.post("/api/send-email", async (req, res) => {
     // Email options
     const mailOptions = {
         from: process.env.GMAIL_USER,
-        to: "recipient-email@example.com",
+        to: process.env.RECIPIENT_EMAIL, // This will send the email to "ilkivmakeup@gmail.com"
         subject: "New Message from Your Website",
         text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
     };
+
 
     try {
         // Send the email
