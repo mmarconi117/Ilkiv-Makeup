@@ -110,10 +110,10 @@ body, html {
 }
 
 /* App.css */
-.form-container {
+.form-button {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Horizontally center the button */
+  align-items: center; /* Vertically center the button */
 }
 
 .open-form-button {
@@ -125,9 +125,9 @@ body, html {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-top: 230px;
   margin-right: 20px;
 }
+
 
 .open-form-button:hover {
   background-color: darkblue; /* Optional: Change color on hover */
