@@ -10,11 +10,12 @@ export default function Form() {
         event.preventDefault();
 
         try {
-            const response = await axios.post("/api/send-email", {
+            const response = await axios.post("http://localhost:5000/api/send-email", {
                 name,
                 email,
                 message
             });
+
 
             console.log("Email sent successfully:", response.data);
             // Optionally, show a success message to the user
