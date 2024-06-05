@@ -49,17 +49,17 @@ function App() {
     };
   }, [currentImageIndex, dispatch]);
 
-  const handlePauseAutoplay = () => {
-    clearInterval(autoplayInterval);
-  };
+  // const handlePauseAutoplay = () => {
+  //   clearInterval(autoplayInterval);
+  // };
 
-  const handleResumeAutoplay = () => {
-    const interval = setInterval(() => {
-      const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
-      dispatch(setCurrentImageIndex(newIndex));
-    }, 5000);
-    setAutoplayInterval(interval);
-  };
+  // const handleResumeAutoplay = () => {
+  //   const interval = setInterval(() => {
+  //     const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
+  //     dispatch(setCurrentImageIndex(newIndex));
+  //   }, 5000);
+  //   setAutoplayInterval(interval);
+  // };
 
   const handleFormToggle = () => {
     if (isFormVisible) {
@@ -86,7 +86,7 @@ function App() {
 
 
 
-      <div className="carousel-container" onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay}>
+      <div className="carousel-container">
         <div className="carousel">
           <button className="prev" onClick={handlePreviousImage}>&#10094;</button>
           <img src={images[currentImageIndex]} alt={`Image ${currentImageIndex + 1}`} />
@@ -95,7 +95,7 @@ function App() {
       </div>
 
 
-
+      {/* onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay} */}
 
 
       <div className='undercar-container'>
