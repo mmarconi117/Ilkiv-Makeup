@@ -51,17 +51,17 @@ function App() {
     };
   }, [currentImageIndex, dispatch]);
 
-  // const handlePauseAutoplay = () => {
-  //   clearInterval(autoplayInterval);
-  // };
+  const handlePauseAutoplay = () => {
+    clearInterval(autoplayInterval);
+  };
 
-  // const handleResumeAutoplay = () => {
-  //   const interval = setInterval(() => {
-  //     const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
-  //     dispatch(setCurrentImageIndex(newIndex));
-  //   }, 5000);
-  //   setAutoplayInterval(interval);
-  // };
+  const handleResumeAutoplay = () => {
+    const interval = setInterval(() => {
+      const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
+      dispatch(setCurrentImageIndex(newIndex));
+    }, 5000);
+    setAutoplayInterval(interval);
+  };
 
   const handleFormToggle = () => {
     if (isFormVisible) {
@@ -79,7 +79,8 @@ function App() {
           {/* <img src={} alt="inna" /> */}
         </div>
         <div className="description-box">
-          <p>Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an appointment or contact me via email!
+          <p>Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an
+          appointment or contact me via email!
           </p>
         </div>
         <Header />
@@ -88,7 +89,7 @@ function App() {
 
 
 
-      <div className="carousel-container">
+      <div className="carousel-container" onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay}>
         <div className="carousel">
           <button className="prev" onClick={handlePreviousImage}>&#10094;</button>
           <img src={images[currentImageIndex]} alt={`Image ${currentImageIndex + 1}`} />

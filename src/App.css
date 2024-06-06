@@ -179,3 +179,101 @@ body, html {
   margin-bottom: 20px;
   font-size: x-large;
 }
+
+@media only screen and (max-width: 375px) {
+  .carousel {
+    width: 90%;
+    height: 40vh;
+  }
+
+  .me {
+    margin-top: 150px;
+  }
+
+  .me img, .description-box, .undercar-middle img, .undercar-right video {
+    width: 100%;
+    height: auto;
+  }
+
+  .description-box {
+    font-size: large;
+  }
+
+  .undercar-title {
+    font-size: 3rem;
+  }
+
+  .undercartitle-container h1 {
+    font-size: 2rem;
+  }
+
+  .leftp {
+    font-size: medium;
+  }
+}
+
+/* iPhone 12/13 and similar (390px wide) */
+@media only screen and (max-width: 390px) {
+  .carousel {
+    width: 80%;
+    height: 45vh;
+  }
+
+  .me {
+    margin-top: 150px;
+  }
+
+  .me img, .description-box, .undercar-middle img, .undercar-right video {
+    width: 100%;
+    height: auto;
+  }
+
+  .description-box {
+    font-size: x-large;
+  }
+
+  .undercar-title {
+    font-size: 4rem;
+  }
+
+  .undercartitle-container h1 {
+    font-size: 2.5rem;
+  }
+
+  .leftp {
+    font-size: large;
+  }
+}
+
+/* iPhone 12/13 Pro Max and similar (428px wide) */
+@media only screen and (max-width: 428px) {
+  .carousel {
+    width: 70%;
+    height: 50vh;
+  }
+
+  .me {
+    margin-top: 150px;
+  }
+
+  .me img, .description-box, .undercar-middle img, .undercar-right video {
+    width: 100%;
+    height: auto;
+  }
+
+  .description-box {
+    font-size: xx-large;
+  }
+
+  .undercar-title {
+    font-size: 4.5rem;
+  }
+
+  .undercartitle-container h1 {
+    font-size: 3rem;
+  }
+
+  .leftp {
+    font-size: large;
+  }
+}
