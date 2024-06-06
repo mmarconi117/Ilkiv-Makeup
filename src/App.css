@@ -171,12 +171,18 @@ body, html {
 
 .undercar-middle img {
   height: 45rem;
-  width: auto; /* Maintain aspect ratio */
+  width: auto;
 }
 
 .undercar-right {
   flex: 1; /* Occupy all available space in the container */
   padding: 0 20px; /* Add padding to the left and right */
+}
+
+.undercar-right video {
+  margin-top: 50px;
+  height: 40rem;
+  width: auto;
 }
 
 .leftp {

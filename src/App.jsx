@@ -9,6 +9,7 @@ import shorthair from './images/shorthair.jpg';
 import greendress from './images/greendress.jpg';
 import longhairblonde from './images/longhairblonde.jpg'
 import undermiddle from './images/undermiddle.jpg'
+import weddingvid from './images/wedding.MOV'
 import { setCurrentImageIndex } from './actions/currentAction';
 import { showForm, hideForm } from './actions/formAction';
 import './App.css';
@@ -111,6 +112,7 @@ function App() {
             <img src={undermiddle} alt="undermiddle" />
           </div>
           <div className='undercar-right'>
+          <video src={weddingvid} alt="video" autoPlay loop muted />
           </div>
         </div>
         <div className='form-button'>
