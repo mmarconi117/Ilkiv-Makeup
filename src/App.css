@@ -165,6 +165,13 @@ body, html {
 .undercar-middle {
   flex: 1; /* Occupy all available space in the container */
   padding: 0 20px; /* Add padding to the left and right */
+  padding-left: 100px;
+  margin-top: 50px;
+}
+
+.undercar-middle img {
+  height: 45rem;
+  width: auto; /* Maintain aspect ratio */
 }
 
 .undercar-right {
