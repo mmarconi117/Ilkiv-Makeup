@@ -11,9 +11,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Email credentials
-const GMAIL_USER = "michaelmarck117@gmail.com";
-const GMAIL_PASS = "zlbhekrcrxenacuu";
-const RECIPIENT_EMAIL = "michaelmarck117@gmail.com";
+const GMAIL_USER = "innailkiv94@gmail.com";
+const GMAIL_PASS = "xfysiazsbrcdtbvf";
+const RECIPIENT_EMAIL = "innailkiv94@gmail.com";
 
 // Endpoint to handle form submissions
 app.post("/api/send-email", async (req, res) => {
