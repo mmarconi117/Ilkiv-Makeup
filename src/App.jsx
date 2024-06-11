@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './components/Header';
 import Form from './components/Form';
-import Footer from './components/Footer'
+import Footer from './components/Footer';
 import fielddressImage from './images/fielddress.jpg';
 import gypImage from './images/gyp.jpg';
 import shorthair from './images/shorthair.jpg';
 import greendress from './images/greendress.jpg';
-import longhairblonde from './images/longhairblonde.jpg'
-import undermiddle from './images/undermiddle.jpg'
-import weddingvid from './images/wedding.MOV'
+import longhairblonde from './images/longhairblonde.jpg';
+import undermiddle from './images/undermiddle.jpg';
+import weddingvid from './images/wedding.MOV';
 import { setCurrentImageIndex } from './actions/currentAction';
 import { showForm, hideForm } from './actions/formAction';
 import './App.css';
@@ -24,6 +24,7 @@ const images = [
 
 function App() {
   const [autoplayInterval, setAutoplayInterval] = useState(null);
+  const [fadeIn, setFadeIn] = useState(false);
   const currentImageIndex = useSelector(state => state.current.currentImageIndex);
   const isFormVisible = useSelector(state => state.form.isFormVisible);
   const dispatch = useDispatch();
@@ -51,6 +52,10 @@ function App() {
     };
   }, [currentImageIndex, dispatch]);
 
+  useEffect(() => {
+    setFadeIn(true);
+  }, []);
+
   const handlePauseAutoplay = () => {
     clearInterval(autoplayInterval);
   };
@@ -73,21 +78,18 @@ function App() {
 
   return (
     <>
-
       <div className='center-container'>
         <div className="me">
           {/* <img src={} alt="inna" /> */}
         </div>
         <div className="description-box">
-          <p>Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an
-          appointment or contact me via email!
+          <p className={fadeIn ? 'fade-in' : ''}>
+            Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an
+            appointment or contact me via email!
           </p>
         </div>
         <Header />
       </div>
-
-
-
 
       <div className="carousel-container" onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay}>
         <div className="carousel">
@@ -96,10 +98,6 @@ function App() {
           <button className="next" onClick={handleNextImage}>&#10095;</button>
         </div>
       </div>
-
-
-      {/* onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay} */}
-
 
       <div className='undercar-container'>
         <div className='undercar-title'>Beauty at its Finest</div>
@@ -113,7 +111,7 @@ function App() {
             <img src={undermiddle} alt="undermiddle" />
           </div>
           <div className='undercar-right'>
-          <video src={weddingvid} alt="video" autoPlay loop muted />
+            <video src={weddingvid} alt="video" autoPlay loop muted />
           </div>
         </div>
         <div className='form-button'>
@@ -121,16 +119,14 @@ function App() {
             {isFormVisible ? "Close Form" : "Book Now!"}
           </button>
           {isFormVisible && (
-        <div className='form-container'>
-          <div className='form'>
-            <Form />
-          </div>
-        </div>
-      )}
+            <div className='form-container'>
+              <div className='form'>
+                <Form />
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-
 
       <div className='footer'>
         <Footer />
