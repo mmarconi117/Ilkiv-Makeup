@@ -1,12 +1,22 @@
-<<<<<<< HEAD
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Si Beauty Bar
 
-Currently, two official plugins are available:
+Full Stack Developer Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-=======
-# Ilkiv-Makeup
->>>>>>> 0707a0f2f73a6b898ab3f684c567fbaaa1bb23bd
+Technologies Used:
+
+Frontend: React, Redux, TailwindCSS
+Backend: Node.js, Express, Nodemailer
+Other: CORS (Cross-Origin Resource Sharing)
+Project Overview
+SiBeautyBar is a feature-rich web application designed to enhance the user experience for an online beauty service. This project highlights the integration of a React-based frontend with a Node.js backend, focusing on responsive design, state management, and seamless form handling.
+
+Features
+Image Carousel: An interactive and visually appealing image carousel to showcase beauty products and services.
+Form Submission: A user-friendly form allowing visitors to submit inquiries or bookings.
+Responsive Design: A design that adapts smoothly to different screen sizes, ensuring a consistent user experience across all devices.
+
+
+State Management: Integrated Redux for efficient state management across the application.
+Email Notifications: Backend functionality to handle form submissions and send email notifications using Nodemailer.
+Cross-Origin Compatibility: Implemented CORS to enable secure and smooth communication between the frontend and backend.
