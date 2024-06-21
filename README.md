@@ -8,6 +8,7 @@ Technologies Used:
 Frontend: React, Redux, TailwindCSS
 Backend: Node.js, Express, Nodemailer
 Other: CORS (Cross-Origin Resource Sharing)
+
 Project Overview
 SiBeautyBar is a feature-rich web application designed to enhance the user experience for an online beauty service. This project highlights the integration of a React-based frontend with a Node.js backend, focusing on responsive design, state management, and seamless form handling.
 
