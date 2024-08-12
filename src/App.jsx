@@ -11,7 +11,7 @@ import longhairblonde from './images/longhairblonde.jpg';
 import undermiddle from './images/undermiddle.jpg';
 import weddingvid from './images/wedding.MOV';
 import { setCurrentImageIndex } from './actions/currentAction';
-import { showForm, hideForm } from './actions/formAction';
+import { showForm, hideForm, showCreate, hideCreate } from './actions/formAction';
 import './App.css';
 
 const images = [
@@ -27,6 +27,7 @@ function App() {
   const [fadeIn, setFadeIn] = useState(false);
   const currentImageIndex = useSelector(state => state.current.currentImageIndex);
   const isFormVisible = useSelector(state => state.form.isFormVisible);
+  const accountVisible = useSelector(state => state.form.accountVisible);
   const dispatch = useDispatch();
 
   const handlePreviousImage = () => {
@@ -70,11 +71,19 @@ function App() {
 
   const handleFormToggle = () => {
     if (isFormVisible) {
-      dispatch(hideForm());
+        dispatch(hideForm());
     } else {
-      dispatch(showForm());
+        dispatch(showForm());
     }
-  };
+};
+
+const handleCreateToggle = () => {
+    if (accountVisible) {
+        dispatch(hideCreate());
+    } else {
+        dispatch(showCreate());
+    }
+};
 
   return (
     <>
@@ -113,7 +122,10 @@ function App() {
           <div className='undercar-right'>
             <video src={weddingvid} alt="video" autoPlay loop muted />
           </div>
-        </div>
+         </div>
+
+
+
         <div className='form-button'>
           <button className="open-form-button" onClick={handleFormToggle}>
             {isFormVisible ? "Close Form" : "Book Now!"}
@@ -127,6 +139,24 @@ function App() {
           )}
         </div>
       </div>
+
+      <h1 className="text-center text-pink-500 mr-7">Or for Beauties</h1>
+
+
+
+      <div className='form-button'>
+          <button className="open-create-button" onClick={handleCreateToggle}>
+            {accountVisible ? "Close Form" : "Create Account!"}
+          </button>
+          {accountVisible && (
+            <div className='form-container'>
+              <div className='form'>
+                <Form />
+              </div>
+            </div>
+          )}
+        </div>
+
 
       <div className='footer'>
         <Footer />
