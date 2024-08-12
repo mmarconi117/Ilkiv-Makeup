@@ -1,5 +1,5 @@
 # Start your image with a node base image
-FROM node:18-alpine
+FROM node:20-alpine
 
 # The /app directory should act as the main application directory
 WORKDIR /app
@@ -10,10 +10,16 @@ COPY package*.json ./
 # Install node packages
 RUN npm install
 
+# Copy all necessary files
+COPY . .
+
+# Build the CSS using Tailwind
+RUN npm run build:css
+
 # Copy the built files to the Docker image
 COPY ./dist ./dist
 
-# Install serve and remove node_modules if needed
+# Install serve
 RUN npm install -g serve
 
 EXPOSE 3000
