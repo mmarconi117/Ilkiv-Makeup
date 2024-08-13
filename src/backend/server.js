@@ -53,38 +53,7 @@ app.post("/api/send-email", async (req, res) => {
 });
 
 // User registration endpoint
-app.post("/api/register", async (req, res) => {
-    const { username, password, email } = req.body;
 
-    try {
-        // Check if the username or email already exists
-        const result = await sql.query`
-            SELECT * FROM Users WHERE Username = ${username} OR Email = ${email}`;
-
-        if (result.recordset.length > 0) {
-            // If a record exists with the same username or email
-            return res.status(400).send("Username or email is already taken");
-        }
-
-        // If the username and email are unique, hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Insert user into the database
-        await sql.query`
-            INSERT INTO Users (Username, Password, Email)
-            VALUES (${username}, ${hashedPassword}, ${email})`;
-
-        res.status(201).send("User registered successfully");
-    } catch (error) {
-        console.error("Error registering user:", error); // Log the full error object
-
-        if (error.code === 'EREQUEST') {
-            return res.status(400).send("Invalid request. Please check your input.");
-        }
-
-        res.status(500).send("Error creating account");
-    }
-});
 
 
 
