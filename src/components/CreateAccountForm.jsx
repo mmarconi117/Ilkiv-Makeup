@@ -6,10 +6,10 @@ export default function CreateAccountForm() {
     const [lname, setlName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState(""); // State for confirm password
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [successMessage, setSuccessMessage] = useState(""); // State for success message
-    const [errorMessage, setErrorMessage] = useState(""); // State for error message
+    const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -34,13 +34,19 @@ export default function CreateAccountForm() {
             setErrorMessage(""); // Clear any previous error message
         } catch (error) {
             console.error("Error creating account", error);
-            setErrorMessage("Error creating account"); // Set error message
+            // Set a more specific error message based on the response
+            if (error.response && error.response.data) {
+                setErrorMessage(error.response.data); // Use the error message from the backend
+            } else {
+                setErrorMessage("Error creating account"); // Generic error message
+            }
         }
     };
 
     return (
         <div>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 bg-white rounded-lg shadow-md">
+                {/* Other form fields remain unchanged */}
                 <div className="mb-4">
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">First Name:</label>
                     <input
@@ -52,9 +58,9 @@ export default function CreateAccountForm() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
-
+                {/* Last Name */}
                 <div className="mb-4">
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Last Name:</label>
+                    <label htmlFor="lname" className="block text-sm font-medium text-gray-700 mb-1">Last Name:</label>
                     <input
                         type="text"
                         id="lname"
@@ -64,7 +70,7 @@ export default function CreateAccountForm() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
-
+                {/* Email */}
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email:</label>
                     <input
@@ -76,19 +82,18 @@ export default function CreateAccountForm() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
-
+                {/* Username */}
                 <div className="mb-4">
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Username:</label>
+                    <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Username:</label>
                     <input
                         id="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
-                        rows="5"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
-
+                {/* Password */}
                 <div className="mb-4">
                     <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password:</label>
                     <input
@@ -100,7 +105,7 @@ export default function CreateAccountForm() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
-
+                {/* Confirm Password */}
                 <div className="mb-4">
                     <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirm Password:</label>
                     <input
@@ -112,7 +117,7 @@ export default function CreateAccountForm() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
-
+                {/* Submit Button */}
                 <button type="submit" className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     Submit
                 </button>
