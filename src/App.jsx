@@ -98,6 +98,18 @@ const handleCreateToggle = () => {
             appointment or contact me via email!
           </p>
         </div>
+        <div className='create-button'>
+          <button className="open-create-button" onClick={handleCreateToggle}>
+            {accountVisible ? "Close Form" : "Create Account!"}
+          </button>
+          {accountVisible && (
+            <div className='form-container'>
+              <div className='form'>
+                <CreateAccountForm />
+              </div>
+            </div>
+          )}
+        </div>
         <Header />
       </div>
 
@@ -145,18 +157,7 @@ const handleCreateToggle = () => {
 
 
 
-      <div className='form-button'>
-          <button className="open-create-button" onClick={handleCreateToggle}>
-            {accountVisible ? "Close Form" : "Create Account!"}
-          </button>
-          {accountVisible && (
-            <div className='form-container'>
-              <div className='form'>
-                <CreateAccountForm />
-              </div>
-            </div>
-          )}
-        </div>
+
 
 
       <div className='footer'>

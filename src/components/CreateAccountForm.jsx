@@ -10,6 +10,7 @@ export default function CreateAccountForm() {
     const [email, setEmail] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -32,6 +33,8 @@ export default function CreateAccountForm() {
             console.log("Account created successfully:", response.data);
             setSuccessMessage("Account created successfully!"); // Set success message
             setErrorMessage(""); // Clear any previous error message
+            setIsLoggedIn(true); // Set isLoggedIn to true after successful registration
+            // Optionally, you can redirect the user to a different page or perform additional actions
         } catch (error) {
             console.error("Error creating account", error);
             // Set a more specific error message based on the response
@@ -43,9 +46,15 @@ export default function CreateAccountForm() {
         }
     };
 
+    const handleLogout = () => {
+        setIsLoggedIn(false); // Log out the user
+        setSuccessMessage(""); // Clear success message if necessary
+    };
+
     return (
         <div>
-            <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 bg-white rounded-lg shadow-md">
+            <form onSubmit={handleSubmit} className="max-w-lg mx-auto pl-4 pr-10 bg-white rounded-lg shadow-md">
+
                 {/* Other form fields remain unchanged */}
                 <div className="mb-4">
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">First Name:</label>
@@ -126,6 +135,12 @@ export default function CreateAccountForm() {
             {successMessage && <p className="text-green-500 mt-2">Success: {successMessage}</p>}
             {/* Error message */}
             {errorMessage && <p className="text-red-500 mt-2">Error: {errorMessage}</p>}
+             {/* Logout Button */}
+             {isLoggedIn && (
+                <button onClick={handleLogout} className="mt-4 w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-md shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                    Logout
+                </button>
+            )}
         </div>
     );
 }

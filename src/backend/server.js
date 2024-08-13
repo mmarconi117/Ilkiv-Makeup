@@ -101,6 +101,38 @@ app.post("/api/register", async (req, res) => {
     }
 });
 
+app.post("/api/login", async (req, res) => {
+    const { username, password } = req.body;
+
+    // Input validation
+    if (!username || !password) {
+        return res.status(400).send("Username and password are required.");
+    }
+
+    try {
+        // Fetch user from the database
+        const result = await sql.query`SELECT * FROM Users WHERE Username = ${username}`;
+        const user = result.recordset[0]; // Get the user record
+
+        // Check if user exists
+        if (!user) {
+            return res.status(401).send("User not found");
+        }
+
+        // Compare the provided password with the hashed password
+        const match = await bcrypt.compare(password, user.Password);
+        if (match) {
+            res.send("Login successful");
+        } else {
+            res.status(401).send("Incorrect password");
+        }
+    } catch (error) {
+        console.error("Error during login:", error);
+        res.status(500).send("Error during login");
+    }
+});
+
+
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
