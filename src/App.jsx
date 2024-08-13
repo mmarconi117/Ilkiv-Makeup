@@ -13,6 +13,7 @@ import weddingvid from './images/wedding.MOV';
 import { setCurrentImageIndex } from './actions/currentAction';
 import { showForm, hideForm, showCreate, hideCreate } from './actions/formAction';
 import CreateAccountForm from './components/CreateAccountForm';
+import LoginButtonForm from './components/LoginButtonForm';
 import './App.css';
 
 const images = [
@@ -91,6 +92,18 @@ const handleCreateToggle = () => {
       <div className='center-container'>
         <div className="me">
           {/* <img src={} alt="inna" /> */}
+        </div>
+        <div className='login-button'>
+          <button className="open-create-button" onClick={handleCreateToggle}>
+            {accountVisible ? "Close Form" : "Login!"}
+          </button>
+          {accountVisible && (
+            <div className='form-container'>
+              <div className='form'>
+                <LoginButtonForm />
+              </div>
+            </div>
+          )}
         </div>
         <div className="description-box">
           <p className={fadeIn ? 'fade-in' : ''}>
