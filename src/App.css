@@ -154,21 +154,26 @@ body, html {
   margin-bottom: 50px;
 }
 
+
 .login-button {
-  /* background-color: blue;
+  position: absolute;
+    top: -10px;
+    right: 10px;
+}
+
+.open-login-button {
+  background-color: blue;
   color: white;
+  background-size: cover;
   padding: 10px 20px;
   font-size: 16px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s; */
-  position: absolute;
-    top: -10px;
-    right: 10px;
-    /* margin-top: 30px;
+  transition: background-color 0.3s;
+  margin-top: 30px;
   margin-left: 10px;
-  margin-bottom: 50px; */
+  margin-bottom: 50px;
 }
 
 .open-form-button:hover {

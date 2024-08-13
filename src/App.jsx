@@ -11,7 +11,7 @@ import longhairblonde from './images/longhairblonde.jpg';
 import undermiddle from './images/undermiddle.jpg';
 import weddingvid from './images/wedding.MOV';
 import { setCurrentImageIndex } from './actions/currentAction';
-import { showForm, hideForm, showCreate, hideCreate } from './actions/formAction';
+import { showForm, hideForm, showCreate, hideCreate, showLogin, hideLogin, } from './actions/formAction';
 import CreateAccountForm from './components/CreateAccountForm';
 import LoginButtonForm from './components/LoginButtonForm';
 import './App.css';
@@ -27,9 +27,11 @@ const images = [
 function App() {
   const [autoplayInterval, setAutoplayInterval] = useState(null);
   const [fadeIn, setFadeIn] = useState(false);
+  const isLoggedIn = useSelector(state => state.form.isLoggedIn);
   const currentImageIndex = useSelector(state => state.current.currentImageIndex);
   const isFormVisible = useSelector(state => state.form.isFormVisible);
   const accountVisible = useSelector(state => state.form.accountVisible);
+  const loginVisible = useSelector(state => state.form.loginVisible);
   const dispatch = useDispatch();
 
   const handlePreviousImage = () => {
@@ -73,19 +75,31 @@ function App() {
 
   const handleFormToggle = () => {
     if (isFormVisible) {
-        dispatch(hideForm());
+      dispatch(hideForm());
     } else {
-        dispatch(showForm());
+      dispatch(showForm());
     }
-};
+  };
 
-const handleCreateToggle = () => {
+  const handleCreateToggle = () => {
     if (accountVisible) {
-        dispatch(hideCreate());
+      dispatch(hideCreate());
     } else {
-        dispatch(showCreate());
+      dispatch(showCreate());
     }
-};
+  };
+
+  const handleLoginToggle = () => {
+    if (loginVisible) {
+      dispatch(hideLogin());
+    } else {
+      dispatch(showLogin());
+    }
+  };
+
+  const handleSuccessfulLogin = () => {
+    dispatch(hideLogin());
+  };
 
   return (
     <>
@@ -94,17 +108,18 @@ const handleCreateToggle = () => {
           {/* <img src={} alt="inna" /> */}
         </div>
         <div className='login-button'>
-          <button className="open-create-button" onClick={handleCreateToggle}>
-            {accountVisible ? "Close Form" : "Login!"}
+          <button className="open-login-button" onClick={handleLoginToggle}>
+            {loginVisible ? "Close Form" : "Login!"}
           </button>
-          {accountVisible && (
+          {loginVisible && (
             <div className='form-container'>
               <div className='form'>
-                <LoginButtonForm />
+                <LoginButtonForm handleSuccessfulLogin={handleSuccessfulLogin} />
               </div>
             </div>
           )}
         </div>
+
         <div className="description-box">
           <p className={fadeIn ? 'fade-in' : ''}>
             Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an
@@ -148,7 +163,7 @@ const handleCreateToggle = () => {
           <div className='undercar-right'>
             <video src={weddingvid} alt="video" autoPlay loop muted />
           </div>
-         </div>
+        </div>
 
 
 
