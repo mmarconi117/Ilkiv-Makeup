@@ -54,13 +54,13 @@ app.post("/api/send-email", async (req, res) => {
 
 // User registration endpoint
 app.post("/api/register", async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
 
         // Insert user into the database
-        await sql.query`INSERT INTO Users (Username, Password) VALUES (${username}, ${hashedPassword})`;
+        await sql.query`INSERT INTO Users (Username, Password, Email) VALUES (${username}, ${hashedPassword}, ${email})`;
         res.status(201).send("User registered successfully");
     } catch (error) {
         console.error("Error registering user:", error);
