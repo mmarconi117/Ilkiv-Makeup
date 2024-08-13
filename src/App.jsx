@@ -12,6 +12,7 @@ import undermiddle from './images/undermiddle.jpg';
 import weddingvid from './images/wedding.MOV';
 import { setCurrentImageIndex } from './actions/currentAction';
 import { showForm, hideForm, showCreate, hideCreate } from './actions/formAction';
+import CreateAccountForm from './components/CreateAccountForm';
 import './App.css';
 
 const images = [
@@ -151,7 +152,7 @@ const handleCreateToggle = () => {
           {accountVisible && (
             <div className='form-container'>
               <div className='form'>
-                <Form />
+                <CreateAccountForm />
               </div>
             </div>
           )}

@@ -1,27 +1,31 @@
 import React, { useState } from "react";
 import axios from "axios"; // Import Axios for making HTTP requests
 
-export default function Form() {
-    const [name, setName] = useState("");
+export default function CreateAccountForm() {
+    const [fname, setfName] = useState("");
+    const [lname, setlName] = useState("");
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState(""); // State for success message
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:5000/api/send-email", {
-                name,
+            const response = await axios.post("http://localhost:5000/api/register", {
+                fname,
+                lname,
+                username,
+                password,
                 email,
-                message
             });
 
             console.log("Email sent successfully:", response.data);
-            setSuccessMessage("Email sent successfully!"); // Set success message
+            setSuccessMessage("Account created successfully!"); // Set success message
             // Optionally, show a success message to the user
         } catch (error) {
-            console.error("Error sending email:", error);
+            console.error("Error creating account", error);
             // Optionally, show an error message to the user
         }
     };
@@ -30,16 +34,33 @@ export default function Form() {
         <div>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 bg-white rounded-lg shadow-md">
                 <div className="mb-4">
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name:</label>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">First Name:</label>
                     <input
                         type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        id="fname"
+                        value={fname}
+                        onChange={(e) => setfName(e.target.value)}
                         required
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
+
+                <div className="mb-4">
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Last Name:</label>
+                    <input
+                        type="text"
+                        id="lname"
+                        value={lname}
+                        onChange={(e) => setlName(e.target.value)}
+                        required
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    />
+                </div>
+
+
+
+
+
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email:</label>
                     <input
@@ -52,16 +73,33 @@ export default function Form() {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message:</label>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Username:</label>
                     <textarea
-                        id="message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
+                        id="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         required
                         rows="5"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     ></textarea>
                 </div>
+
+
+
+                <div className="mb-4">
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Password:</label>
+                    <input
+                        type="text"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    />
+                </div>
+
+
+
                 <button type="submit" className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     Submit
                 </button>
