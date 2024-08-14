@@ -11,7 +11,8 @@ import longhairblonde from './images/longhairblonde.jpg';
 import undermiddle from './images/undermiddle.jpg';
 import weddingvid from './images/wedding.MOV';
 import { setCurrentImageIndex } from './actions/currentAction';
-import { showForm, hideForm, showCreate, hideCreate, showLogin, hideLogin, } from './actions/formAction';
+import { showForm, hideForm } from './actions/formAction';
+import { loginSuccess, logout } from './actions/loginAction';
 import CreateAccountForm from './components/CreateAccountForm';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
@@ -29,6 +30,7 @@ function App() {
   const [fadeIn, setFadeIn] = useState(false);
   const currentImageIndex = useSelector(state => state.current.currentImageIndex);
   const isFormVisible = useSelector(state => state.form.isFormVisible);
+  const loggedIn = useSelector(state => state.user.loggedIn); // Adjust according to your state structure
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -86,25 +88,32 @@ function App() {
       navigate('/login');
     };
 
+    const handleLoginSuccess = () => {
+      dispatch(loginSuccess());
+    };
+
   return (
     <>
       <div className='center-container'>
-        <div className="me">
-          {/* <img src={} alt="inna" /> */}
-        </div>
-        <div className="description-box">
-          <p className={fadeIn ? 'fade-in' : ''}>
-            Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an
-            appointment or contact me via email!
-          </p>
-        </div>
-        <div className='create-button'>
-      <button className="open-create-button" onClick={handleNavigateToLogin}>
-        Create Account!
-      </button>
-    </div>
-        <Header />
+      <div className="me">
+        {/* <img src={} alt="inna" /> */}
       </div>
+      <div className="description-box">
+        <p className={fadeIn ? 'fade-in' : ''}>
+          Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an
+          appointment or contact me via email!
+        </p>
+      </div>
+      {/* Conditionally render the Create Account button */}
+      {!loggedIn && (
+        <div className='create-button'>
+          <button className="open-create-button" onClick={handleNavigateToLogin}>
+            Create Account!
+          </button>
+        </div>
+      )}
+      <Header />
+    </div>
 
       <div className="carousel-container" onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay}>
         <div className="carousel">

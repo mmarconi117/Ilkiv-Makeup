@@ -1,11 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Router, Routes, and Route
+import { Provider, useDispatch } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import App from './App.jsx';
-import LoginPage from './components/LoginPage.jsx'; // Import LoginPage
+import LoginPage from './components/LoginPage.jsx';
 import store from './store';
+import { loginSuccess } from './actions/loginAction'; // Import your action
 import './index.css';
+
+// Create a wrapper component to handle login success
+const LoginPageWrapper = () => {
+  const dispatch = useDispatch();
+
+  const handleLoginSuccess = () => {
+    dispatch(loginSuccess());
+    // Add any other logic you want to execute on login success
+  };
+
+  return <LoginPage onLoginSuccess={handleLoginSuccess} />;
+};
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -13,7 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Router>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPageWrapper />} />
         </Routes>
       </Router>
     </Provider>

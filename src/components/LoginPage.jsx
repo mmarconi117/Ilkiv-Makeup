@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
+const LoginPage = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,7 +22,13 @@ const LoginPage = () => {
       console.log("Logged in successfully:", response.data);
       setSuccessMessage("Logged in successfully!");
       setErrorMessage("");
-      setIsLoggedIn(true);
+
+      // Call the function passed from App to update the login state
+      onLoginSuccess();
+
+      // Navigate to the home page on successful login
+      navigate('/');
+
     } catch (error) {
       console.error("Error logging in:", error);
       if (error.response) {

@@ -1,12 +1,11 @@
-// reducer.js
-
-import { LOGIN_SUCCESS, LOGOUT } from './loginAction';
+// loginReducer.jsx
+import { LOGIN_SUCCESS, LOGOUT } from '../actions/loginAction'; // Corrected import statement
 
 const initialState = {
     loggedIn: false,
 };
 
-export default function formReducer(state = initialState, action) {
+export default function loginReducer(state = initialState, action) {
     switch (action.type) {
         case LOGIN_SUCCESS:
             return {
