@@ -13,7 +13,7 @@ import weddingvid from './images/wedding.MOV';
 import { setCurrentImageIndex } from './actions/currentAction';
 import { showForm, hideForm, showCreate, hideCreate, showLogin, hideLogin, } from './actions/formAction';
 import CreateAccountForm from './components/CreateAccountForm';
-import LoginButtonForm from './components/LoginButtonForm';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 
 const images = [
@@ -27,11 +27,9 @@ const images = [
 function App() {
   const [autoplayInterval, setAutoplayInterval] = useState(null);
   const [fadeIn, setFadeIn] = useState(false);
-  const isLoggedIn = useSelector(state => state.form.isLoggedIn);
   const currentImageIndex = useSelector(state => state.current.currentImageIndex);
   const isFormVisible = useSelector(state => state.form.isFormVisible);
-  const accountVisible = useSelector(state => state.form.accountVisible);
-  const loginVisible = useSelector(state => state.form.loginVisible);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handlePreviousImage = () => {
@@ -81,25 +79,12 @@ function App() {
     }
   };
 
-  const handleCreateToggle = () => {
-    if (accountVisible) {
-      dispatch(hideCreate());
-    } else {
-      dispatch(showCreate());
-    }
-  };
 
-  const handleLoginToggle = () => {
-    if (loginVisible) {
-      dispatch(hideLogin());
-    } else {
-      dispatch(showLogin());
-    }
-  };
 
-  const handleSuccessfulLogin = () => {
-    dispatch(hideLogin());
-  };
+    const handleNavigateToLogin = () => {
+      console.log("Navigating to Login Page");
+      navigate('/login');
+    };
 
   return (
     <>
@@ -107,19 +92,6 @@ function App() {
         <div className="me">
           {/* <img src={} alt="inna" /> */}
         </div>
-        <div className='login-button'>
-          <button className="open-login-button" onClick={handleLoginToggle}>
-            {loginVisible ? "Close Form" : "Login!"}
-          </button>
-          {loginVisible && (
-            <div className='form-container'>
-              <div className='form'>
-                <LoginButtonForm handleSuccessfulLogin={handleSuccessfulLogin} />
-              </div>
-            </div>
-          )}
-        </div>
-
         <div className="description-box">
           <p className={fadeIn ? 'fade-in' : ''}>
             Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an
@@ -127,17 +99,10 @@ function App() {
           </p>
         </div>
         <div className='create-button'>
-          <button className="open-create-button" onClick={handleCreateToggle}>
-            {accountVisible ? "Close Form" : "Create Account!"}
-          </button>
-          {accountVisible && (
-            <div className='form-container'>
-              <div className='form'>
-                <CreateAccountForm />
-              </div>
-            </div>
-          )}
-        </div>
+      <button className="open-create-button" onClick={handleNavigateToLogin}>
+        Create Account!
+      </button>
+    </div>
         <Header />
       </div>
 
