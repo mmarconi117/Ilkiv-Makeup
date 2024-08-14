@@ -24,7 +24,7 @@ const LoginPage = ({ onLoginSuccess }) => {
       setErrorMessage("");
 
       // Call the function passed from App to update the login state
-      onLoginSuccess();
+      onLoginSuccess(username);
 
       // Navigate to the home page on successful login
       navigate('/');

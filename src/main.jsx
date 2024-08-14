@@ -12,8 +12,8 @@ import './index.css';
 const LoginPageWrapper = () => {
   const dispatch = useDispatch();
 
-  const handleLoginSuccess = () => {
-    dispatch(loginSuccess());
+  const handleLoginSuccess = (username) => {
+    dispatch(loginSuccess(username));
     // Add any other logic you want to execute on login success
   };
 

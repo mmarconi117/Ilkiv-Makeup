@@ -3,6 +3,7 @@ import { LOGIN_SUCCESS, LOGOUT } from '../actions/loginAction'; // Corrected imp
 
 const initialState = {
     loggedIn: false,
+    username: ''
 };
 
 export default function loginReducer(state = initialState, action) {

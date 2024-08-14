@@ -31,6 +31,7 @@ function App() {
   const currentImageIndex = useSelector(state => state.current.currentImageIndex);
   const isFormVisible = useSelector(state => state.form.isFormVisible);
   const loggedIn = useSelector(state => state.user.loggedIn); // Adjust according to your state structure
+  const username = useSelector(state => state.user.username);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -93,25 +94,29 @@ function App() {
   return (
     <>
       <div className='center-container'>
-      <div className="me">
-        {/* <img src={} alt="inna" /> */}
-      </div>
-      <div className="description-box">
-        <p className={fadeIn ? 'fade-in' : ''}>
-          Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an
-          appointment or contact me via email!
-        </p>
-      </div>
-      {/* Conditionally render the Create Account button */}
-      {!loggedIn && (
-        <div className='create-button'>
-          <button className="open-create-button" onClick={handleNavigateToLogin}>
-            Create Account!
-          </button>
-        </div>
-      )}
-      <Header />
+    <div className="me">
+      {/* <img src={} alt="inna" /> */}
     </div>
+    <div className="description-box">
+      <p className={fadeIn ? 'fade-in' : ''}>
+        Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an
+        appointment or contact me via email!
+      </p>
+    </div>
+    {/* Conditionally render the welcome message or Create Account button */}
+    {loggedIn ? (
+      <div className="welcome-message">
+        <h1>Welcome, {username}!</h1>
+      </div>
+    ) : (
+      <div className='create-button'>
+        <button className="open-create-button" onClick={handleNavigateToLogin}>
+          Create Account!
+        </button>
+      </div>
+    )}
+    <Header />
+  </div>
 
       <div className="carousel-container" onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay}>
         <div className="carousel">
