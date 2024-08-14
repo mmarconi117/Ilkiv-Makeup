@@ -88,9 +88,7 @@ function App() {
       navigate('/login');
     };
 
-    const handleLoginSuccess = () => {
-      dispatch(loginSuccess());
-    };
+
 
   return (
     <>
