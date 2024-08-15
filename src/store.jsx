@@ -1,7 +1,9 @@
 // store.js
-
-import { createStore, combineReducers } from 'redux';
-import currentReducer from './reducers/currentReducer'; // Import your reducer(s) here
+import { createStore } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; // default to localStorage
+import { combineReducers } from 'redux';
+import currentReducer from './reducers/currentReducer';
 import formReducer from './reducers/formReducer';
 import loginReducer from './reducers/loginReducer';
 
@@ -13,7 +15,20 @@ const rootReducer = combineReducers({
   // Add other reducers here if you have them
 });
 
-// Create Redux store
-const store = createStore(rootReducer);
+// Configure redux-persist
+const persistConfig = {
+  key: 'root',
+  storage,
+  // Optionally, you can blacklist or whitelist specific reducers
+  // blacklist: ['form'], // example to exclude form reducer
+};
 
-export default store;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// Create Redux store
+const store = createStore(persistedReducer);
+
+// Create a persistor
+const persistor = persistStore(store);
+
+export { store, persistor };

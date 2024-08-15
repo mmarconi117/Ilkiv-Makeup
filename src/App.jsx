@@ -89,7 +89,9 @@ function App() {
       navigate('/login');
     };
 
-
+    const handleLogout = () => {
+      dispatch(logout()); // Dispatch logout action
+    };
 
   return (
     <>
@@ -106,7 +108,10 @@ function App() {
   {/* Conditionally render the welcome message or Create Account button */}
   {loggedIn ? (
     <div className="welcome-message">
-      <h1>Welcome, {username}!</h1> {/* Display the username */}
+      <h1 className='user-welcome'>Welcome, {username}!</h1>
+      <button className="logout-button" onClick={handleLogout}>
+            Log Out
+          </button>
     </div>
   ) : (
     <div className='create-button'>
