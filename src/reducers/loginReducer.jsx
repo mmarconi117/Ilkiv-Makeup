@@ -1,4 +1,3 @@
-// loginReducer.jsx
 import { LOGIN_SUCCESS, LOGOUT, SET_USERNAME } from '../actions/loginAction'; // Corrected import statement
 
 const initialState = {
@@ -12,19 +11,15 @@ export default function loginReducer(state = initialState, action) {
             return {
                 ...state,
                 loggedIn: true,
+                username: action.payload // Set the username here directly
             };
         case LOGOUT:
-            return {
-                ...state,
-                loggedIn: false,
-            };
+            return initialState;
         case SET_USERNAME:
             return {
                 ...state,
-                username: action.payload, // Save the username
+                username: action.payload // Save the username here as well
             };
-            case LOGOUT:
-                return initialState;
         default:
             return state;
     }

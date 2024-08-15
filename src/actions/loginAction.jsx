@@ -5,9 +5,10 @@ export const LOGOUT = 'LOGOUT';
 export const SET_USERNAME = 'SET_USERNAME';
 
 // Action to handle successful login
-export const loginSuccess = () => {
+export const loginSuccess = (username) => {
     return {
-        type: LOGIN_SUCCESS
+        type: LOGIN_SUCCESS,
+        payload: username
     };
 };
 
