@@ -158,7 +158,7 @@ function App() {
         </div>
       </div>
 
-      <h1 className="text-center text-pink-500 mr-7">Or for Beauties</h1>
+
 
 
 
