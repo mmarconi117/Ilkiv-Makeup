@@ -16,9 +16,7 @@ app.use(cors());
 
 require('dotenv').config();
 
-console.log("GMAIL_USER:", process.env.GMAIL_USER);
-console.log("GMAIL_PASS:", process.env.GMAIL_PASS);
-console.log("RECIPIENT_EMAIL:", process.env.RECIPIENT_EMAIL);
+
 
 // Your existing code
 
