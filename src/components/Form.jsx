@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios"; // Import Axios for making HTTP requests
+import axios from "axios";
 
 export default function Form() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
-    const [successMessage, setSuccessMessage] = useState(""); // State for success message
+    const [successMessage, setSuccessMessage] = useState("");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -18,11 +18,9 @@ export default function Form() {
             });
 
             console.log("Email sent successfully:", response.data);
-            setSuccessMessage("Email sent successfully!"); // Set success message
-            // Optionally, show a success message to the user
+            setSuccessMessage("Email sent successfully!");
         } catch (error) {
             console.error("Error sending email:", error);
-            // Optionally, show an error message to the user
         }
     };
 
@@ -66,7 +64,6 @@ export default function Form() {
                     Submit
                 </button>
             </form>
-            {/* Success message */}
             {successMessage && <p className="text-green-500 mt-2">Success: {successMessage}</p>}
         </div>
     );

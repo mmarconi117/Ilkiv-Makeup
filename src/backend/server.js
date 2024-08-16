@@ -4,7 +4,9 @@ const nodemailer = require("nodemailer");
 const cors = require("cors");
 const sql = require("mssql");
 const bcrypt = require('bcrypt');
-const dbConfig = require('./dbConfig'); // Import your DB config
+const dbConfig = require('./dbConfig');
+require('dotenv').config();
+
 
 const app = express();
 
@@ -12,10 +14,18 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Email credentials
-const GMAIL_USER = "innailkiv94@gmail.com";
-const GMAIL_PASS = "xfysiazsbrcdtbvf";
-const RECIPIENT_EMAIL = "innailkiv94@gmail.com";
+require('dotenv').config();
+
+console.log("GMAIL_USER:", process.env.GMAIL_USER);
+console.log("GMAIL_PASS:", process.env.GMAIL_PASS);
+console.log("RECIPIENT_EMAIL:", process.env.RECIPIENT_EMAIL);
+
+// Your existing code
+
+
+const GMAIL_USER = process.env.GMAIL_USER;
+const GMAIL_PASS = process.env.GMAIL_PASS;
+const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL;
 
 // Connect to the database
 sql.connect(dbConfig)
@@ -26,7 +36,6 @@ sql.connect(dbConfig)
 app.post("/api/send-email", async (req, res) => {
     const { name, email, message } = req.body;
 
-    // Create a Nodemailer transporter
     const transporter = nodemailer.createTransport({
         service: "Gmail",
         auth: {
@@ -35,7 +44,6 @@ app.post("/api/send-email", async (req, res) => {
         }
     });
 
-    // Email options
     const mailOptions = {
         from: GMAIL_USER,
         to: RECIPIENT_EMAIL,
@@ -53,15 +61,9 @@ app.post("/api/send-email", async (req, res) => {
 });
 
 // User registration endpoint
-
-
-
-
-// User login endpoint
 app.post("/api/register", async (req, res) => {
     const { username, password, email } = req.body;
 
-    // Input validation
     if (!username || !password || !email) {
         return res.status(400).send("Username, password, and email are required.");
     }
@@ -73,7 +75,6 @@ app.post("/api/register", async (req, res) => {
     }
 
     try {
-        // Check if the username or email already exists
         const result = await sql.query`
             SELECT * FROM Users WHERE Username = ${username} OR Email = ${email}`;
 
@@ -81,10 +82,8 @@ app.post("/api/register", async (req, res) => {
             return res.status(400).send("Username or email is already taken");
         }
 
-        // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Insert user into the database
         await sql.query`
             INSERT INTO Users (Username, Password, Email)
             VALUES (${username}, ${hashedPassword}, ${email})`;
@@ -101,25 +100,22 @@ app.post("/api/register", async (req, res) => {
     }
 });
 
+// User login endpoint
 app.post("/api/login", async (req, res) => {
     const { username, password } = req.body;
 
-    // Input validation
     if (!username || !password) {
         return res.status(400).send("Username and password are required.");
     }
 
     try {
-        // Fetch user from the database
         const result = await sql.query`SELECT * FROM Users WHERE Username = ${username}`;
-        const user = result.recordset[0]; // Get the user record
+        const user = result.recordset[0];
 
-        // Check if user exists
         if (!user) {
             return res.status(401).send("User not found");
         }
 
-        // Compare the provided password with the hashed password
         const match = await bcrypt.compare(password, user.Password);
         if (match) {
             res.send("Login successful");
@@ -131,7 +127,6 @@ app.post("/api/login", async (req, res) => {
         res.status(500).send("Error during login");
     }
 });
-
 
 // Start the server
 const PORT = process.env.PORT || 5000;
