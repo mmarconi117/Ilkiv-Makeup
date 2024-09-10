@@ -5,7 +5,6 @@ Full Stack Developer Project
 Technologies Used:
 
 Frontend: React, Redux, Tailwind CSS
-Backend: Node.js, Express, Nodemailer
 Database: Azure SQL, Docker, Azure Studio
 Other: CORS (Cross-Origin Resource Sharing)
 Project Overview: Si Beauty Bar is a feature-rich web application designed to enhance the user experience for an online beauty service. This project highlights the integration of a React-based frontend with a Node.js backend, focusing on responsive design, state management, and seamless form handling.
