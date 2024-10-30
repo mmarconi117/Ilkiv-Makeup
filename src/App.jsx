@@ -90,7 +90,7 @@ function App() {
     };
 
     const handleLogout = () => {
-      dispatch(logout()); // Dispatch logout action
+      dispatch(logout());
     };
 
   return (
