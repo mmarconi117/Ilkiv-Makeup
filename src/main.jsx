@@ -7,7 +7,7 @@ import { store, persistor } from './store'; // Import store and persistor
 import App from './App.jsx';
 import LoginPage from './components/LoginPage.jsx';
 import { loginSuccess } from './actions/loginAction'; // Import your action
-import './index.css';
+
 
 // Create a wrapper component to handle login success
 const LoginPageWrapper = () => {
