@@ -12,7 +12,7 @@ import undermiddle from './images/undermiddle.jpg';
 import weddingvid from './images/wedding.MOV';
 import { setCurrentImageIndex } from './actions/currentAction';
 import { showForm, hideForm } from './actions/formAction';
-import { loginSuccess, logout } from './actions/loginAction';
+import { logout } from './actions/loginAction';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 
