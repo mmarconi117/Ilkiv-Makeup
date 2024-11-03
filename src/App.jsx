@@ -104,7 +104,7 @@ function App() {
       appointment or contact me via email!
     </p>
   </div>
-  {/* Conditionally render the welcome message or Create Account button */}
+
   {loggedIn ? (
     <div className="welcome-message">
       <h1 className='user-welcome'>Welcome, {username}!</h1>
