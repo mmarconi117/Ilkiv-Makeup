@@ -10,6 +10,7 @@ import greendress from './images/greendress.jpg';
 import longhairblonde from './images/longhairblonde.jpg';
 import undermiddle from './images/undermiddle.jpg';
 import weddingvid from './images/wedding.MOV';
+import ChatBubble from './components/ChatBubble/ChatBubble';
 import { setCurrentImageIndex } from './actions/currentAction';
 import { showForm, hideForm } from './actions/formAction';
 import { logout } from './actions/loginAction';
@@ -121,7 +122,7 @@ function App() {
   )}
   <Header />
 </div>
-
+  <ChatBubble />
 
       <div className="carousel-container" onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay}>
         <div className="carousel">

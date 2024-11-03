@@ -1,0 +1,55 @@
+/* ChatBubble.css */
+
+/* Base styles for the chat bubble */
+.chat-bubble {
+    position: fixed; /* Fixed positioning */
+    bottom: 20px; /* Distance from the bottom */
+    right: 20px; /* Distance from the right */
+    background-color: #007bff; /* Background color */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding for the bubble */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optional shadow for effect */
+    z-index: 1000; /* Ensure it stays above other elements */
+  }
+
+  .chat-bubble.open {
+    width: 300px; /* Expand width when opened */
+    height: auto;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 15px;
+  }
+
+  .chat-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-options button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .chat-options button:hover {
+    background-color: #0056b3;
+  }
+
+  .welcome-message p, .chat-response p {
+    color: #333;
+    font-size: 14px;
+  }
+
+  .chat-response {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+  }
