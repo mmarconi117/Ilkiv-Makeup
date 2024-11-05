@@ -25,7 +25,7 @@ function ChatBubble() {
     <div className={`chat-bubble ${isOpen ? 'open' : ''}`} onClick={!isOpen ? handleBubbleClick : null}>
       {!isOpen && (
         <div className="chat-icon">
-          <span>💬</span> {/* Chat bubble icon */}
+          <span>💬</span>
         </div>
       )}
 
