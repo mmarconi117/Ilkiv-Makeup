@@ -45,7 +45,7 @@ function ChatBubble() {
 
           {chatResponse && (
             <div className="chat-response">
-              <p>{chatResponse}</p> {/* Display chat response */}
+              <p>{chatResponse}</p>
             </div>
           )}
         </div>
