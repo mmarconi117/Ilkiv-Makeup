@@ -17,7 +17,7 @@ function ChatBubble() {
     } else if (option === 'What I offer') {
       setChatResponse('Here are the services I offer: ...'); // Customize response
     } else if (option === 'Menu') {
-      setChatResponse('Here’s the menu: ...'); // Customize response
+      setChatResponse('Here’s the menu: .'); // Customize response
     }
   };
 
