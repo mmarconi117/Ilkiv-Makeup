@@ -18,7 +18,6 @@ require('dotenv').config();
 
 
 
-// Your existing code
 
 
 const GMAIL_USER = process.env.GMAIL_USER;
