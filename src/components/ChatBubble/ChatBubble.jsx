@@ -14,7 +14,7 @@ function ChatBubble() {
   const handleOptionClick = (option) => {
     if (option === 'Book appointment') {
       setChatResponse('Scroll down toward the bottom of the page and click book now!');
-    } else if (option === 'What I offer') {
+    } else if (option === 'What I offer...') {
       setChatResponse('Here are the services I offer: ...');
     } else if (option === 'Menu') {
       setChatResponse('Here’s the menu: .');
