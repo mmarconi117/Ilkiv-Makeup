@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import './ChatBubble.css'; // Assuming you have the styles
+import './ChatBubble.css';
 
 function ChatBubble() {
-  const [isOpen, setIsOpen] = useState(false); // Toggle chat visibility
-  const [optionsVisible, setOptionsVisible] = useState(false); // Toggle options visibility
-  const [chatResponse, setChatResponse] = useState(''); // To store the chat response message
+  const [isOpen, setIsOpen] = useState(false);
+  const [optionsVisible, setOptionsVisible] = useState(false);
+  const [chatResponse, setChatResponse] = useState('');
 
   const handleBubbleClick = () => {
     setIsOpen(true); // Open chat on click
-    setTimeout(() => setOptionsVisible(true), 1000); // Show options after a brief delay
+    setTimeout(() => setOptionsVisible(true), 1000);
   };
 
   const handleOptionClick = (option) => {
     if (option === 'Book appointment') {
-      setChatResponse('Scroll down toward the bottom of the page and click book now!'); // Set response for Book appointment
+      setChatResponse('Scroll down toward the bottom of the page and click book now!');
     } else if (option === 'What I offer') {
-      setChatResponse('Here are the services I offer: ...'); // Customize response
+      setChatResponse('Here are the services I offer: ...');
     } else if (option === 'Menu') {
-      setChatResponse('Here’s the menu: .'); // Customize response
+      setChatResponse('Here’s the menu: .');
     }
   };
 
