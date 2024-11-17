@@ -21,6 +21,12 @@ function ChatBubble() {
     }
   };
 
+  const closeChat = () => {
+    setIsOpen(false);
+    setOptionsVisible(false);
+    setChatResponse('');
+  };
+
   return (
     <div className={`chat-bubble ${isOpen ? 'open' : ''}`} onClick={!isOpen ? handleBubbleClick : null}>
       {!isOpen && (
@@ -47,6 +53,11 @@ function ChatBubble() {
             <div className="chat-response">
               <p>{chatResponse}</p>
             </div>
+          )}
+          {isOpen && (
+            <button className="close-button" onClick={closeChat}>
+              Close
+            </button>
           )}
         </div>
       )}
