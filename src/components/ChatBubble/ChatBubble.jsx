@@ -31,9 +31,9 @@ function ChatBubble() {
 
   const handleMessageSend = (e) => {
     e.preventDefault();
-    if (userMessage.trim() === '') return; // Don't send empty messages
+    if (userMessage.trim() === '') return;
     setChatResponse(`You said: ${userMessage}`);
-    setUserMessage(''); // Clear input field after sending
+    setUserMessage('');
   };
 
   return (
