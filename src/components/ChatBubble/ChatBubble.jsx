@@ -5,6 +5,7 @@ function ChatBubble() {
   const [isOpen, setIsOpen] = useState(false);
   const [optionsVisible, setOptionsVisible] = useState(false);
   const [chatResponse, setChatResponse] = useState('');
+  const [userMessage, setUserMessage] = useState('')
 
   const handleBubbleClick = () => {
     setIsOpen(true); // Open chat on click
@@ -25,6 +26,14 @@ function ChatBubble() {
     setIsOpen(false);
     setOptionsVisible(false);
     setChatResponse('');
+    setUserMessage('');
+  };
+
+  const handleMessageSend = (e) => {
+    e.preventDefault();
+    if (userMessage.trim() === '') return; // Don't send empty messages
+    setChatResponse(`You said: ${userMessage}`);
+    setUserMessage(''); // Clear input field after sending
   };
 
   return (
@@ -54,6 +63,20 @@ function ChatBubble() {
               <p>{chatResponse}</p>
             </div>
           )}
+
+        <div className="chat-input">
+            <form onSubmit={handleMessageSend}>
+              <input
+                type="text"
+                value={userMessage}
+                onChange={(e) => setUserMessage(e.target.value)}
+                placeholder="Type a message..."
+              />
+              <button type="submit">Send</button>
+            </form>
+          </div>
+
+
           {isOpen && (
             <button className="close-button" onClick={closeChat}>
               Close
