@@ -8,7 +8,7 @@ function ChatBubble() {
   const [userMessage, setUserMessage] = useState('')
 
   const handleBubbleClick = () => {
-    setIsOpen(true); // Open chat on click
+    setIsOpen(true);
     setTimeout(() => setOptionsVisible(true), 1000);
   };
 
