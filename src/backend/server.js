@@ -97,7 +97,7 @@ app.post("/api/register", async (req, res) => {
     }
 });
 
-// User login endpoint
+
 app.post("/api/login", async (req, res) => {
     const { username, password } = req.body;
 
