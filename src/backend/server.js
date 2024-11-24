@@ -29,7 +29,7 @@ sql.connect(dbConfig)
     .then(() => console.log("Connected to the database"))
     .catch((err) => console.error("Database connection error:", err));
 
-// Endpoint to handle form submissions
+
 app.post("/api/send-email", async (req, res) => {
     const { name, email, message } = req.body;
 
