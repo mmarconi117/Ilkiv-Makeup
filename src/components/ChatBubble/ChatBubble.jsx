@@ -16,7 +16,7 @@ function ChatBubble() {
     if (option === 'Book appointment') {
       setChatResponse('Scroll down toward the bottom of the page and click book now!');
     } else if (option === 'What I offer...') {
-      setChatResponse('Here are the services I offer: ...');
+      setChatResponse('I offer personalized beauty services tailored to your needs, ensuring you look and feel your best for weddings, proms, parties, photoshoots, and other special occasions.');
     } else if (option === 'Menu') {
       setChatResponse('Here’s the menu: .');
     }
@@ -64,7 +64,7 @@ function ChatBubble() {
             </div>
           )}
 
-        <div className="chat-input">
+          <div className="chat-input">
             <form onSubmit={handleMessageSend}>
               <input
                 type="text"
