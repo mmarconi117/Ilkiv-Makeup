@@ -32,7 +32,7 @@ function ChatBubble() {
   const handleMessageSend = (e) => {
     e.preventDefault();
     if (userMessage.trim() === '') return;
-    setChatResponse(`You chose: ${userMessage}`);
+    setChatResponse(`Please pick an option`);
     setUserMessage('');
   };
 
