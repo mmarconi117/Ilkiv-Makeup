@@ -79,7 +79,7 @@ function ChatBubble() {
 
           {isOpen && (
             <button className="close-button" onClick={closeChat}>
-              Close
+              X
             </button>
           )}
         </div>
