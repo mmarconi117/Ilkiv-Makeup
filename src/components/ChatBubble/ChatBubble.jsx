@@ -53,7 +53,7 @@ function ChatBubble() {
           {optionsVisible && (
             <div className="chat-options">
               <button onClick={() => handleOptionClick('Book appointment')}>Book appointment</button>
-              <button onClick={() => handleOptionClick('What I offer')}>What I offer</button>
+              <button onClick={() => handleOptionClick('What I offer')}>Services I offer</button>
               <button onClick={() => handleOptionClick('Menu')}>Menu</button>
             </div>
           )}
