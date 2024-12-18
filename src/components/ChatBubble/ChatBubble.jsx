@@ -72,7 +72,7 @@ function ChatBubble() {
                 onChange={(e) => setUserMessage(e.target.value)}
                 placeholder="Type a message!"
               />
-              <button type="submit">Send</button>
+              <button type="submit">Send Message</button>
             </form>
           </div>
 
