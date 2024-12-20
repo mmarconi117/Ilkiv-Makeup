@@ -15,7 +15,7 @@ function ChatBubble() {
   const handleOptionClick = (option) => {
     if (option === 'Book appointment') {
       setChatResponse('Scroll down toward the bottom of the page and click book now!');
-    } else if (option === 'What I offer is...') {
+    } else if (option === 'What I offer...') {
       setChatResponse('I offer personalized beauty services tailored to your needs, ensuring you look and feel your best for weddings, proms, parties, photoshoots, and other special occasions.');
     } else if (option === 'Menu') {
       setChatResponse('Here’s the menu: Nails, Hair, Makeup.');
