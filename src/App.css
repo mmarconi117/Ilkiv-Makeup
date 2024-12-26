@@ -74,7 +74,8 @@ body, html {
 
 
 .user-welcome {
-  color: rgb(242, 152, 167);
+  color: rgb(242, 152, 215);
+  margin-right: 10px;
 }
 
 
@@ -87,7 +88,7 @@ body, html {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-left: 80px;
+  margin-left: 120px;
 }
 
 .me {
