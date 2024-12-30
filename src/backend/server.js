@@ -125,6 +125,16 @@ app.post("/api/login", async (req, res) => {
     }
 });
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(err.status || 500).send({
+        error: {
+            message: err.message || "An internal server error occurred.",
+        },
+    });
+});
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
