@@ -18,6 +18,10 @@ An interactive and visually appealing image carousel to showcase beauty products
 Form Submission:
  A user-friendly form allowing visitors to submit inquiries or bookings.
 
+User Registration: 
+ Allows users to create an account.
+ Authentication functionality for logging in and out.
+
 Responsive Design:
 A design that adapts smoothly to different screen sizes, ensuring a consistent user experience across all devices.
 State Management: Integrated Redux for efficient state management across the application.
