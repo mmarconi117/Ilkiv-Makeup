@@ -9,7 +9,7 @@ function Footer() {
                 <div className="text-lg mb-4">ilkivmakeup@gmail.com</div>
                 <div className="flex justify-center items-center mb-4">
                     <a href="https://www.instagram.com/ilkivmakeup?igsh=emhiMWF2M3d5eXRI" target="_blank" rel="noopener noreferrer">
-                        <i className="fab fa-instagram text-pink-500 text-2xl mr-4"></i> {/* Adjusted color to pink */}
+                        <i className="fab fa-instagram text-pink-500 text-2xl mr-4"></i> 
                     </a>
                 </div>
                 <span className="text-sm">© 2024 Your Company. All rights reserved.</span>
