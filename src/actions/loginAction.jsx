@@ -22,7 +22,7 @@ export const setUsername = (username) => ({
 });
 
 
-// Action to handle logout
+
 export const logout = () => {
     return {
         type: LOGOUT

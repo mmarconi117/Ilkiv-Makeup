@@ -31,9 +31,9 @@ export default function CreateAccountForm() {
             });
 
             console.log("Account created successfully:", response.data);
-            setSuccessMessage("Account created successfully!"); // Set success message
-            setErrorMessage(""); // Clear any previous error message
-            setIsLoggedIn(true); // Set isLoggedIn to true after successful registration
+            setSuccessMessage("Account created successfully!");
+            setErrorMessage("");
+            setIsLoggedIn(true);
             // Optionally, you can redirect the user to a different page or perform additional actions
         } catch (error) {
             console.error("Error creating account", error);
