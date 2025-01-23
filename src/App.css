@@ -112,7 +112,7 @@ body, html {
   color: white;
 }
 
-/* Add these new styles for the transition effect */
+
 .description-box p {
   opacity: 0;
   transform: translateY(20px);
