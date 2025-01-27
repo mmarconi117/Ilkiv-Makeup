@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider, useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { PersistGate } from 'redux-persist/integration/react'; // Import PersistGate
-import { store, persistor } from './store'; // Import store and persistor
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store';
 import App from './App.jsx';
 import LoginPage from './components/LoginPage.jsx';
 import { loginSuccess } from './actions/loginAction';
@@ -15,7 +15,7 @@ const LoginPageWrapper = () => {
 
   const handleLoginSuccess = (username) => {
     dispatch(loginSuccess(username));
-    // Add any other logic you want to execute on login success
+    // Add any other logic you want to execute on login successgit
   };
 
   return <LoginPage onLoginSuccess={handleLoginSuccess} />;
