@@ -6,7 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react'; // Import Persist
 import { store, persistor } from './store'; // Import store and persistor
 import App from './App.jsx';
 import LoginPage from './components/LoginPage.jsx';
-import { loginSuccess } from './actions/loginAction'; // Import your action
+import { loginSuccess } from './actions/loginAction';
 
 
 // Create a wrapper component to handle login success
