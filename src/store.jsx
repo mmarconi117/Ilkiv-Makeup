@@ -7,7 +7,7 @@ import currentReducer from './reducers/currentReducer';
 import formReducer from './reducers/formReducer';
 import loginReducer from './reducers/loginReducer';
 
-// Combine reducers into a root reducer
+
 const rootReducer = combineReducers({
   current: currentReducer,
   form: formReducer,
