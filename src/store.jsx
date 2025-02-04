@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   current: currentReducer,
   form: formReducer,
   user: loginReducer,
-  // Add other reducers here if you have them
+
 });
 
 // Configure redux-persist
