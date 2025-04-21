@@ -17,7 +17,7 @@ export default function Form() {
                 message
             });
 
-            console.log("Email sent successfully:", response.data);
+
             setSuccessMessage("Email sent successfully!");
         } catch (error) {
             console.error("Error sending email:", error);
