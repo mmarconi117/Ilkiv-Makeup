@@ -85,7 +85,6 @@ function App() {
 
 
     const handleNavigateToLogin = () => {
-      console.log("Navigating to Login Page");
       navigate('/login');
     };
 
