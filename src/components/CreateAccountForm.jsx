@@ -30,7 +30,6 @@ export default function CreateAccountForm() {
                 email,
             });
 
-            console.log("Account created successfully:", response.data);
             setSuccessMessage("Account created successfully!");
             setErrorMessage("");
             setIsLoggedIn(true);
