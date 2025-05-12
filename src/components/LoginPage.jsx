@@ -25,8 +25,6 @@ const LoginPage = ({ onLoginSuccess }) => {
           username,
           password,
         });
-
-        console.log("Logged in successfully:", response.data);
         setSuccessMessage("Logged in successfully!");
         setErrorMessage("");
 
