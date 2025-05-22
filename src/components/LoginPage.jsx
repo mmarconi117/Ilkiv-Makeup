@@ -48,7 +48,6 @@ const LoginPage = ({ onLoginSuccess }) => {
           password,
         });
 
-        console.log("Signed up successfully:", response.data);
         setSuccessMessage("Account created successfully! You can now log in.");
         setErrorMessage("");
 
