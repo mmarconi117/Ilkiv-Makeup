@@ -55,7 +55,6 @@ const LoginPage = ({ onLoginSuccess }) => {
         setIsLogin(true);
       }
     } catch (error) {
-      console.error("Error during request:", error);
       if (error.response) {
         console.error("Response data:", error.response.data);
         setErrorMessage(error.response.data);
