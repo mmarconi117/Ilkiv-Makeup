@@ -19,8 +19,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  // Optionally, you can blacklist or whitelist specific reducers
-  // blacklist: ['form'], // example to exclude form reducer
+
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
