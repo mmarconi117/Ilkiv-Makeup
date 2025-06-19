@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { login, register, forgotPassword } from '../api';  // adjust path if needed
 
 const LoginPage = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState("");
@@ -21,15 +21,9 @@ const LoginPage = ({ onLoginSuccess }) => {
     try {
       if (isLogin) {
         // Login request
-        const response = await axios.post("http://localhost:5000/api/login", {
-          username,
-          password,
-        });
-        setSuccessMessage("Logged in successfully!");
+        const response = await login(username, password);
+        onLoginSuccess(response.data.username);
         setErrorMessage("");
-
-        // Call the function passed from App to update the login state
-        onLoginSuccess(username);
 
         // Navigate to the home page on successful login
         navigate('/');
@@ -40,13 +34,7 @@ const LoginPage = ({ onLoginSuccess }) => {
           return;
         }
 
-        const response = await axios.post("http://localhost:5000/api/register", {
-          firstName,
-          lastName,
-          email,
-          username,
-          password,
-        });
+        const response = await register(username, password, email);
 
         setSuccessMessage("Account created successfully! You can now log in.");
         setErrorMessage("");
@@ -63,6 +51,26 @@ const LoginPage = ({ onLoginSuccess }) => {
       }
     }
   };
+
+const handleForgotPassword = async () => {
+  const userEmail = prompt("Please enter your email address:");
+
+  if (!userEmail) {
+    setErrorMessage("Email is required for password reset.");
+    return;
+  }
+
+  try {
+    const response = await forgotPassword(userEmail);
+    setSuccessMessage("Password reset email sent.");
+    setErrorMessage("");
+  } catch (error) {
+    console.error("Forgot password error:", error.response?.data);
+    setErrorMessage(error.response?.data || "An error occurred.");
+  }
+};
+
+
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -184,7 +192,15 @@ const LoginPage = ({ onLoginSuccess }) => {
               {isLogin ? "Login" : "Sign Up"}
             </button>
           </div>
-          <div className="text-sm text-center text-gray-600">
+          <div className="text-sm text-center text-gray-600 space-y-2">
+            {isLogin && (
+              <p
+                className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                onClick={handleForgotPassword}
+              >
+                Forgot password?
+              </p>
+            )}
             {isLogin ? (
               <>
                 Don't have an account?{" "}

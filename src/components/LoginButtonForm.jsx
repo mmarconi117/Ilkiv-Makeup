@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { hideLogin } from '../actions/formAction';
-import axios from "axios";
+import { login } from '../api';  // Import from your api.js
 
 export default function LoginButtonForm() {
     const [username, setUsername] = useState("");
@@ -10,15 +8,11 @@ export default function LoginButtonForm() {
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:5000/api/login", {
-                username,
-                password,
-            });
+            const response = await login(username, password);
 
             console.log("Logged in successfully:", response.data);
             setSuccessMessage("Logged in successfully!");
@@ -35,11 +29,6 @@ export default function LoginButtonForm() {
         }
     };
 
-
-
-
-
-
     const handleLogout = () => {
         setIsLoggedIn(false);
         setSuccessMessage("");
@@ -50,14 +39,25 @@ export default function LoginButtonForm() {
             {isLoggedIn ? (
                 <div>
                     <p className="text-white-500 mt-2">Welcome, {username}!</p>
-                    <button onClick={handleLogout} className="mt-4 w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-md shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                    <button
+                        onClick={handleLogout}
+                        className="mt-4 w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-md shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                    >
                         Logout
                     </button>
                 </div>
             ) : (
-                <form onSubmit={handleSubmit} className="max-w-lg mx-auto pl-4 pr-10 bg-white rounded-lg shadow-md">
+                <form
+                    onSubmit={handleSubmit}
+                    className="max-w-lg mx-auto pl-4 pr-10 bg-white rounded-lg shadow-md"
+                >
                     <div className="mb-4">
-                        <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Username:</label>
+                        <label
+                            htmlFor="username"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                        >
+                            Username:
+                        </label>
                         <input
                             id="username"
                             value={username}
@@ -67,7 +67,12 @@ export default function LoginButtonForm() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password:</label>
+                        <label
+                            htmlFor="password"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                        >
+                            Password:
+                        </label>
                         <input
                             type="password"
                             id="password"
@@ -77,13 +82,20 @@ export default function LoginButtonForm() {
                             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                         />
                     </div>
-                    <button type="submit" className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <button
+                        type="submit"
+                        className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
                         Login
                     </button>
                 </form>
             )}
-            {successMessage && <p className="text-green-500 mt-2">Success: {successMessage}</p>}
-            {errorMessage && <p className="text-red-500 mt-2">Error: {errorMessage}</p>}
+            {successMessage && (
+                <p className="text-green-500 mt-2">Success: {successMessage}</p>
+            )}
+            {errorMessage && (
+                <p className="text-red-500 mt-2">Error: {errorMessage}</p>
+            )}
         </div>
     );
 }

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
 import App from './App.jsx';
+import ResetPassword from './components/ResetPassword.jsx';
 import LoginPage from './components/LoginPage.jsx';
 import { loginSuccess } from './actions/loginAction';
 
@@ -29,6 +30,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/login" element={<LoginPageWrapper />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
         </Router>
       </PersistGate>

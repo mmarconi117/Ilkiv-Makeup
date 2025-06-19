@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { sendEmail } from '../api';  // Import your sendEmail API
 
 export default function Form() {
     const [name, setName] = useState("");
@@ -11,24 +11,29 @@ export default function Form() {
         event.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:5000/api/send-email", {
-                name,
-                email,
-                message
-            });
+            const response = await sendEmail(name, email, message);
 
-
+            console.log("Email sent:", response.data);
             setSuccessMessage("Email sent successfully!");
         } catch (error) {
-            console.error("Error sending email:", error);
+            console.error("Error sending email:", error.response?.data || error.message);
+            setSuccessMessage("Error sending email.");
         }
     };
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 bg-white rounded-lg shadow-md">
+            <form
+                onSubmit={handleSubmit}
+                className="max-w-lg mx-auto p-4 bg-white rounded-lg shadow-md"
+            >
                 <div className="mb-4">
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name:</label>
+                    <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                        Name:
+                    </label>
                     <input
                         type="text"
                         id="name"
@@ -39,7 +44,12 @@ export default function Form() {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email:</label>
+                    <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                        Email:
+                    </label>
                     <input
                         type="email"
                         id="email"
@@ -50,7 +60,12 @@ export default function Form() {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message:</label>
+                    <label
+                        htmlFor="message"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                        Message:
+                    </label>
                     <textarea
                         id="message"
                         value={message}
@@ -60,11 +75,16 @@ export default function Form() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     ></textarea>
                 </div>
-                <button type="submit" className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <button
+                    type="submit"
+                    className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
                     Submit
                 </button>
             </form>
-            {successMessage && <p className="text-green-500 mt-2">Success: {successMessage}</p>}
+            {successMessage && (
+                <p className="text-green-500 mt-2">Success: {successMessage}</p>
+            )}
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios"; // Import Axios for making HTTP requests
+import { register } from '../api';  // Import your register API
 
 export default function CreateAccountForm() {
     const [fname, setfName] = useState("");
@@ -22,41 +22,31 @@ export default function CreateAccountForm() {
         }
 
         try {
-            const response = await axios.post("http://localhost:5000/api/register", {
-                fname,
-                lname,
-                username,
-                password,
-                email,
-            });
+            const response = await register(username, password, email);
 
             setSuccessMessage("Account created successfully!");
             setErrorMessage("");
             setIsLoggedIn(true);
-            // Optionally, you can redirect the user to a different page or perform additional actions
         } catch (error) {
             console.error("Error creating account", error);
-            // Set a more specific error message based on the response
             if (error.response && error.response.data) {
-                setErrorMessage(error.response.data); // Use the error message from the backend
+                setErrorMessage(error.response.data);
             } else {
-                setErrorMessage("Error creating account"); // Generic error message
+                setErrorMessage("Error creating account");
             }
         }
     };
 
     const handleLogout = () => {
-        setIsLoggedIn(false); // Log out the user
-        setSuccessMessage(""); // Clear success message if necessary
+        setIsLoggedIn(false);
+        setSuccessMessage("");
     };
 
     return (
         <div>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto pl-4 pr-10 bg-white rounded-lg shadow-md">
-
-                {/* Other form fields remain unchanged */}
                 <div className="mb-4">
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">First Name:</label>
+                    <label htmlFor="fname" className="block text-sm font-medium text-gray-700 mb-1">First Name:</label>
                     <input
                         type="text"
                         id="fname"
@@ -66,7 +56,6 @@ export default function CreateAccountForm() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
-                {/* Last Name */}
                 <div className="mb-4">
                     <label htmlFor="lname" className="block text-sm font-medium text-gray-700 mb-1">Last Name:</label>
                     <input
@@ -78,7 +67,6 @@ export default function CreateAccountForm() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
-                {/* Email */}
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email:</label>
                     <input
@@ -90,7 +78,6 @@ export default function CreateAccountForm() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
-                {/* Username */}
                 <div className="mb-4">
                     <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Username:</label>
                     <input
@@ -101,7 +88,6 @@ export default function CreateAccountForm() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
-                {/* Password */}
                 <div className="mb-4">
                     <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password:</label>
                     <input
@@ -113,7 +99,6 @@ export default function CreateAccountForm() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
-                {/* Confirm Password */}
                 <div className="mb-4">
                     <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirm Password:</label>
                     <input
@@ -125,18 +110,24 @@ export default function CreateAccountForm() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
-                {/* Submit Button */}
-                <button type="submit" className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <button
+                    type="submit"
+                    className="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
                     Submit
                 </button>
             </form>
-            {/* Success message */}
-            {successMessage && <p className="text-green-500 mt-2">Success: {successMessage}</p>}
-            {/* Error message */}
-            {errorMessage && <p className="text-red-500 mt-2">Error: {errorMessage}</p>}
-             {/* Logout Button */}
-             {isLoggedIn && (
-                <button onClick={handleLogout} className="mt-4 w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-md shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+            {successMessage && (
+                <p className="text-green-500 mt-2">Success: {successMessage}</p>
+            )}
+            {errorMessage && (
+                <p className="text-red-500 mt-2">Error: {errorMessage}</p>
+            )}
+            {isLoggedIn && (
+                <button
+                    onClick={handleLogout}
+                    className="mt-4 w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-md shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                >
                     Logout
                 </button>
             )}
