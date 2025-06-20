@@ -180,7 +180,7 @@ header {
 }
 
 .open-create-button {
-  background-color: blue;
+  background-color: rgb(183, 0, 255);
   color: white;
   background-size: cover;
   padding: 10px 20px;

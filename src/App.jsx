@@ -84,46 +84,49 @@ function App() {
 
 
 
-    const handleNavigateToLogin = () => {
-      navigate('/login');
-    };
+  const handleNavigateToLogin = () => {
+    navigate('/login');
+  };
 
-    const handleLogout = () => {
-      dispatch(logout());
-    };
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
 
 
   return (
     <>
       <div className='center-container'>
-  <div className="me">
-    {/* <img src={} alt="inna" /> */}
-  </div>
-  <div className="description-box">
-    <p className={fadeIn ? 'fade-in' : ''}>
-      Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an
-      appointment or contact me via email!
-    </p>
-  </div>
+        <div className="me">
+          {/* <img src={} alt="inna" /> */}
+        </div>
+        <div className="description-box">
+          <p className={fadeIn ? 'fade-in' : ''}>
+            Specializing in: Hair, Makeup, Massages, nails, and wedding prep. Fill out the form below to make an
+            appointment or contact me via email!
+          </p>
+        </div>
 
-  {loggedIn ? (
-    <div className="welcome-message">
-      <h1 className='user-welcome'>Welcome, {username}!</h1>
-      <button className="logout-button" onClick={handleLogout}>
-            Log Out
-          </button>
-    </div>
-  ) : (
-    <div className='create-button'>
-      <button className="open-create-button" onClick={handleNavigateToLogin}>
-        Create Account!
-      </button>
-    </div>
-  )}
-  <Header />
-</div>
-  <ChatBubble />
+        {loggedIn ? (
+          <div className="welcome-message">
+            <h1 className='user-welcome'>Welcome, {username}!</h1>
+            <button className="logout-button" onClick={handleLogout}>
+              Log Out
+            </button>
+          </div>
+        ) : (
+          <div className='create-button'>
+            <button className="open-create-button" onClick={handleNavigateToLogin}>
+              Create Account<br />
+              or<br />
+              Sign In!
+            </button>
+          </div>
+
+        )}
+        <Header />
+      </div>
+      <ChatBubble />
 
       <div className="carousel-container" onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay}>
         <div className="carousel">
