@@ -7,44 +7,37 @@ const bcrypt = require('bcrypt');
 const dbConfig = require('./dbConfig');
 require('dotenv').config();
 
-
 const app = express();
 
-// Middleware
 app.use(bodyParser.json());
 app.use(cors());
 
-require('dotenv').config();
-
-
-
-
-
-const GMAIL_USER = process.env.GMAIL_USER;
-const GMAIL_PASS = process.env.GMAIL_PASS;
+const YAHOO_USER = process.env.YAHOO_USER;
+const YAHOO_PASS = process.env.YAHOO_PASS;
 const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL;
 
-// Connect to the database
+const transporter = nodemailer.createTransport({
+    host: "smtp.mail.yahoo.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: YAHOO_USER,
+        pass: YAHOO_PASS
+    }
+});
+
 sql.connect(dbConfig)
     .then(() => console.log("Connected to the database"))
     .catch((err) => console.error("Database connection error:", err));
 
-
 app.post("/api/send-email", async (req, res) => {
     const { name, email, message } = req.body;
 
-    const transporter = nodemailer.createTransport({
-        service: "Gmail",
-        auth: {
-            user: GMAIL_USER,
-            pass: GMAIL_PASS
-        }
-    });
-
     const mailOptions = {
-        from: GMAIL_USER,
+        from: YAHOO_USER,
         to: RECIPIENT_EMAIL,
-        subject: "New Message from Your Website",
+        replyTo: email,
+        subject: `New Message from ${name} via Website`,
         text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
     };
 
@@ -57,7 +50,6 @@ app.post("/api/send-email", async (req, res) => {
     }
 });
 
-// User registration endpoint
 app.post("/api/register", async (req, res) => {
     const { username, password, email } = req.body;
 
@@ -97,30 +89,36 @@ app.post("/api/register", async (req, res) => {
     }
 });
 
-
 app.post("/api/login", async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-        return res.status(400).send("Username/email and password are required.");
+        return res.status(400).send("Username and password are required.");
     }
 
     try {
-        const result = await sql.query`
-            SELECT * FROM Users
-            WHERE Username = ${username} OR Email = ${username}`;
-
+        const result = await sql.query`SELECT * FROM Users WHERE Username = ${username}`;
         const user = result.recordset[0];
 
         if (!user) {
-            return res.status(401).send("User not found.");
+            return res.status(401).send("User not found");
         }
 
         const match = await bcrypt.compare(password, user.Password);
         if (match) {
+            const mailOptions = {
+                from: YAHOO_USER,
+                to: RECIPIENT_EMAIL,
+                subject: "Login Notification",
+                text: `User ${username} has successfully logged in at ${new Date().toLocaleString()}.`
+            };
+
+            await transporter.sendMail(mailOptions);
+
             res.send({
                 message: "Login successful",
-                username: user.Username
+                username: user.Username,
+                email: user.Email
             });
         } else {
             res.status(401).send("Incorrect password");
@@ -131,11 +129,6 @@ app.post("/api/login", async (req, res) => {
     }
 });
 
-
-
-
-
-
 app.post("/api/forgot-password", async (req, res) => {
     const { email } = req.body;
 
@@ -144,7 +137,6 @@ app.post("/api/forgot-password", async (req, res) => {
     }
 
     try {
-        // Check if user exists
         const result = await sql.query`SELECT * FROM Users WHERE Email = ${email}`;
         const user = result.recordset[0];
 
@@ -152,18 +144,15 @@ app.post("/api/forgot-password", async (req, res) => {
             return res.status(404).send("No user found with that email.");
         }
 
-        // Generate token
         const token = Math.random().toString(36).substr(2);
 
-        // Save token in DB:
         await sql.query`
             UPDATE Users
             SET ResetPasswordToken = ${token}
             WHERE Email = ${email};
         `;
 
-        // Send email
-        const transporter = nodemailer.createTransport({
+        const gmailTransporter = nodemailer.createTransport({
             service: "Gmail",
             auth: {
                 user: process.env.GMAIL_USER,
@@ -181,7 +170,7 @@ app.post("/api/forgot-password", async (req, res) => {
             text: `Click the link to reset your password: ${resetLink}`,
         };
 
-        await transporter.sendMail(mailOptions);
+        await gmailTransporter.sendMail(mailOptions);
 
         res.send("Password reset email sent.");
     } catch (error) {
@@ -189,7 +178,6 @@ app.post("/api/forgot-password", async (req, res) => {
         res.status(500).send("Error processing password reset.");
     }
 });
-
 
 app.post("/api/reset-password", async (req, res) => {
     const { token, newPassword } = req.body;
@@ -199,7 +187,6 @@ app.post("/api/reset-password", async (req, res) => {
     }
 
     try {
-        // Find user by token:
         const result = await sql.query`
             SELECT * FROM Users
             WHERE ResetPasswordToken = ${token};
@@ -211,10 +198,8 @@ app.post("/api/reset-password", async (req, res) => {
             return res.status(400).send("Invalid or expired token.");
         }
 
-        // Hash new password:
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-        // Update password + clear token:
         await sql.query`
             UPDATE Users
             SET Password = ${hashedPassword}, ResetPasswordToken = NULL
@@ -228,8 +213,6 @@ app.post("/api/reset-password", async (req, res) => {
     }
 });
 
-
-
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(err.status || 500).send({
@@ -238,8 +221,6 @@ app.use((err, req, res, next) => {
         },
     });
 });
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

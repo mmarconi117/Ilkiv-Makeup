@@ -90,7 +90,9 @@ function App() {
 
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.removeItem("userEmail");
   };
+
 
 
 
@@ -116,11 +118,17 @@ function App() {
           </div>
         ) : (
           <div className='create-button'>
-            <button className="open-create-button" onClick={handleNavigateToLogin}>
-              Create Account<br />
-              or<br />
-              Sign In!
-            </button>
+
+            <div className="create-button space-y-4">
+              <button
+                className="open-create-button"
+                onClick={handleNavigateToLogin}
+              >
+                Create Account or Sign In
+              </button>
+            </div>
+
+
           </div>
 
         )}
