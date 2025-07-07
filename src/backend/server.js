@@ -5,6 +5,7 @@ const cors = require("cors");
 const sql = require("mssql");
 const bcrypt = require('bcrypt');
 const dbConfig = require('./dbConfig');
+const chatbotRoute = require('./chatbotRoute');
 require('dotenv').config();
 
 const app = express();
@@ -212,6 +213,8 @@ app.post("/api/reset-password", async (req, res) => {
         res.status(500).send("Error resetting password.");
     }
 });
+
+app.use('/api/chatbot', chatbotRoute);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

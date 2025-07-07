@@ -29,12 +29,31 @@ function ChatBubble() {
     setUserMessage('');
   };
 
-  const handleMessageSend = (e) => {
-    e.preventDefault();
-    if (userMessage.trim() === '') return;
-    setChatResponse(`Please pick an option!`);
-    setUserMessage('');
-  };
+const handleMessageSend = async (e) => {
+  e.preventDefault();
+  if (userMessage.trim() === '') return;
+
+  try {
+    const response = await fetch('http://localhost:5000/api/chatbot', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userMessage }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      setChatResponse(data.reply || 'Sorry, no reply from chatbot.');
+    } else {
+      setChatResponse('Error: ' + (data.error || 'Unknown error'));
+    }
+  } catch (error) {
+    console.error('Error sending message:', error);
+    setChatResponse('Error communicating with chatbot server.');
+  }
+
+  setUserMessage('');
+};
 
   return (
     <div className={`chat-bubble ${isOpen ? 'open' : ''}`} onClick={!isOpen ? handleBubbleClick : null}>

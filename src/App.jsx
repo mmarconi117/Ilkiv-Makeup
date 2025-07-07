@@ -25,6 +25,8 @@ const images = [
   longhairblonde,
 ];
 
+
+
 function App() {
   const [autoplayInterval, setAutoplayInterval] = useState(null);
   const [fadeIn, setFadeIn] = useState(false);
