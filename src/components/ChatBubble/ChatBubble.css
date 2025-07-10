@@ -1,9 +1,9 @@
-/* Global reset */
+/* Global reset
 * {
   box-sizing: border-box;
 }
 
-/* Main chat bubble */
+
 .chat-bubble {
   position: fixed;
   bottom: 20px;
@@ -19,7 +19,7 @@
   font-family: Arial, sans-serif;
 }
 
-/* Open state styling */
+
 .chat-bubble.open {
   background-color: #f1f1f1;
   color: #333;
@@ -27,13 +27,13 @@
   border-radius: 10px;
 }
 
-/* Content layout */
+
 .chat-content {
   display: flex;
   flex-direction: column;
 }
 
-/* Button options */
+
 .chat-options button {
   background-color: #007bff;
   color: white;
@@ -50,7 +50,7 @@
   background-color: #0056b3;
 }
 
-/* Welcome + Response message */
+
 .welcome-message p,
 .chat-response p {
   color: #333;
@@ -58,7 +58,7 @@
   margin: 0 0 10px 0;
 }
 
-/* Response box */
+
 .chat-response {
   margin-top: 15px;
   padding: 10px;
@@ -66,7 +66,7 @@
   border-radius: 5px;
 }
 
-/* Chat input section */
+
 .chat-input {
   margin-top: 15px;
 }
@@ -99,7 +99,7 @@
   background-color: #0056b3;
 }
 
-/* Close button */
+
 .close-button {
   background-color: #f44336;
   color: white;
@@ -109,4 +109,4 @@
   cursor: pointer;
   font-size: 14px;
   margin-top: 10px;
-}
+} */
