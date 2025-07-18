@@ -213,15 +213,15 @@ app.post("/api/reset-password", async (req, res) => {
     }
 });
 
-app.use('/api/chatbot', chatbotRoute);
+// app.use('/api/chatbot', chatbotRoute);
 
-app.use((err, req, res, next) => {
-    res.status(err.status || 500).send({
-        error: {
-            message: err.message || "An internal server error occurred.",
-        },
-    });
-});
+// app.use((err, req, res, next) => {
+//     res.status(err.status || 500).send({
+//         error: {
+//             message: err.message || "An internal server error occurred.",
+//         },
+//     });
+// });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
