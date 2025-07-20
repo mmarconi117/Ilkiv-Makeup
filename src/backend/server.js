@@ -5,7 +5,7 @@ const cors = require("cors");
 const sql = require("mssql");
 const bcrypt = require('bcrypt');
 const dbConfig = require('./dbConfig');
-const chatbotRoute = require('./chatbotRoute');
+// const chatbotRoute = require('./chatbotRoute');
 require('dotenv').config();
 
 const app = express();
