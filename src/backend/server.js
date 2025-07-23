@@ -98,7 +98,12 @@ app.post("/api/login", async (req, res) => {
     }
 
     try {
-        const result = await sql.query`SELECT * FROM Users WHERE Username = ${username}`;
+        const normalizedInput = username.toLowerCase();
+
+        const result = await sql.query`
+  SELECT * FROM Users
+  WHERE LOWER(Username) = ${normalizedInput} OR LOWER(Email) = ${normalizedInput}`;
+
         const user = result.recordset[0];
 
         if (!user) {
@@ -134,51 +139,70 @@ app.post("/api/forgot-password", async (req, res) => {
     const { email } = req.body;
 
     if (!email) {
+        console.log("Forgot password attempt with missing email");
         return res.status(400).send("Email is required.");
     }
 
     try {
-        const result = await sql.query`SELECT * FROM Users WHERE Email = ${email}`;
+        const normalizedEmail = email.trim().toLowerCase();
+        console.log(`Forgot password requested for email: ${normalizedEmail}`);
+
+        // Case-insensitive email search
+        const result = await sql.query`
+            SELECT * FROM Users WHERE LOWER(Email) = ${normalizedEmail}
+        `;
+
         const user = result.recordset[0];
 
         if (!user) {
+            console.log(`No user found with email: ${normalizedEmail}`);
             return res.status(404).send("No user found with that email.");
         }
 
+        // Generate reset token
         const token = Math.random().toString(36).substr(2);
+        console.log(`Generated reset token for user ${user.Username}: ${token}`);
 
+        // Update user with reset token (case-insensitive match again)
         await sql.query`
             UPDATE Users
             SET ResetPasswordToken = ${token}
-            WHERE Email = ${email};
+            WHERE LOWER(Email) = ${normalizedEmail};
         `;
+        console.log(`Reset token saved for email: ${normalizedEmail}`);
 
-        const gmailTransporter = nodemailer.createTransport({
-            service: "Gmail",
+        const yahooTransporter = nodemailer.createTransport({
+            host: "smtp.mail.yahoo.com",
+            port: 465,
+            secure: true,
             auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_PASS,
+                user: process.env.YAHOO_USER,
+                pass: process.env.YAHOO_PASS,
             },
         });
 
         const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
         const resetLink = `${FRONTEND_URL}/reset-password?token=${token}`;
+        console.log(`Password reset link: ${resetLink}`);
 
         const mailOptions = {
-            from: process.env.GMAIL_USER,
-            to: email,
+            from: process.env.YAHOO_USER,
+            to: normalizedEmail,
             subject: "Password Reset Request",
             text: `Click the link to reset your password: ${resetLink}`,
         };
 
-        await gmailTransporter.sendMail(mailOptions);
+        // Send reset email
+        await yahooTransporter.sendMail(mailOptions);
+        console.log(`Password reset email sent to: ${normalizedEmail}`);
 
         res.send("Password reset email sent.");
     } catch (error) {
-        console.error("Error sending password reset email:", error);
+        console.error("Forgot Password Error:", error.message, error.stack);
         res.status(500).send("Error processing password reset.");
     }
 });
+
 
 app.post("/api/reset-password", async (req, res) => {
     const { token, newPassword } = req.body;
