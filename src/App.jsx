@@ -135,7 +135,7 @@ function App() {
         )}
         <Header />
       </div>
-      {/* <ChatBubble /> */}
+
 
       <div className="carousel-container" onMouseEnter={handlePauseAutoplay} onMouseLeave={handleResumeAutoplay}>
         <div className="carousel">
