@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import Header from './components/Header';
 import Form from './components/Form';
 import Footer from './components/Footer';
+
 import fielddressImage from './images/fielddress.jpg';
 import gypImage from './images/gyp.jpg';
 import shorthair from './images/shorthair.jpg';
@@ -10,10 +13,11 @@ import greendress from './images/greendress.jpg';
 import longhairblonde from './images/longhairblonde.jpg';
 import undermiddle from './images/undermiddle.jpg';
 import weddingvid from './images/wedding.MOV';
+
 import { setCurrentImageIndex } from './actions/currentAction';
 import { showForm, hideForm } from './actions/formAction';
 import { logout } from './actions/loginAction';
-import { useNavigate } from 'react-router-dom';
+
 import './App.css';
 
 const images = [
@@ -24,17 +28,46 @@ const images = [
   longhairblonde,
 ];
 
-
-
 function App() {
-  const [autoplayInterval, setAutoplayInterval] = useState(null);
-  const [fadeIn, setFadeIn] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Redux selectors — adjust according to your store structure
   const currentImageIndex = useSelector(state => state.current.currentImageIndex);
   const isFormVisible = useSelector(state => state.form.isFormVisible);
-  const loggedIn = useSelector(state => state.user.loggedIn); // Adjust according to your state structure
+
+  // Make sure these match your Redux slice keys!
+  const loggedIn = useSelector(state => state.user.loggedIn);
   const username = useSelector(state => state.user.username);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  const [fadeIn, setFadeIn] = useState(false);
+
+  // Use a ref to hold interval ID so it can be cleared properly
+  const autoplayIntervalRef = useRef(null);
+
+  // Autoplay interval setup & cleanup
+  useEffect(() => {
+    // Clear existing interval if any
+    if (autoplayIntervalRef.current) clearInterval(autoplayIntervalRef.current);
+
+    // Set up new interval
+    autoplayIntervalRef.current = setInterval(() => {
+      const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
+      dispatch(setCurrentImageIndex(newIndex));
+    }, 5000);
+
+    return () => {
+      if (autoplayIntervalRef.current) {
+        clearInterval(autoplayIntervalRef.current);
+        autoplayIntervalRef.current = null;
+      }
+    };
+  }, [currentImageIndex, dispatch]);
+
+  // Fade-in effect on mount
+  useEffect(() => {
+    setFadeIn(true);
+  }, []);
 
   const handlePreviousImage = () => {
     const newIndex = currentImageIndex === 0 ? images.length - 1 : currentImageIndex - 1;
@@ -46,33 +79,20 @@ function App() {
     dispatch(setCurrentImageIndex(newIndex));
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
-      dispatch(setCurrentImageIndex(newIndex));
-    }, 5000);
-
-    setAutoplayInterval(interval);
-
-    return () => {
-      clearInterval(autoplayInterval);
-    };
-  }, [currentImageIndex, dispatch]);
-
-  useEffect(() => {
-    setFadeIn(true);
-  }, []);
-
   const handlePauseAutoplay = () => {
-    clearInterval(autoplayInterval);
+    if (autoplayIntervalRef.current) {
+      clearInterval(autoplayIntervalRef.current);
+      autoplayIntervalRef.current = null;
+    }
   };
 
   const handleResumeAutoplay = () => {
-    const interval = setInterval(() => {
-      const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
-      dispatch(setCurrentImageIndex(newIndex));
-    }, 5000);
-    setAutoplayInterval(interval);
+    if (!autoplayIntervalRef.current) {
+      autoplayIntervalRef.current = setInterval(() => {
+        const newIndex = currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1;
+        dispatch(setCurrentImageIndex(newIndex));
+      }, 5000);
+    }
   };
 
   const handleFormToggle = () => {
@@ -83,19 +103,14 @@ function App() {
     }
   };
 
-
-
   const handleNavigateToLogin = () => {
     navigate('/login');
   };
 
   const handleLogout = () => {
     dispatch(logout());
-    localStorage.removeItem("userEmail");
+    localStorage.removeItem('userEmail');
   };
-
-
-
 
   return (
     <>
@@ -112,14 +127,13 @@ function App() {
 
         {loggedIn ? (
           <div className="welcome-message">
-            <h1 className='user-welcome'>Welcome, {username}!</h1>
+            <h1>Welcome, {username || 'Guest'}!</h1>
             <button className="logout-button" onClick={handleLogout}>
               Log Out
             </button>
           </div>
         ) : (
           <div className='create-button'>
-
             <div className="create-button space-y-4">
               <button
                 className="open-create-button"
@@ -128,11 +142,9 @@ function App() {
                 Create Account or Sign In
               </button>
             </div>
-
-
           </div>
-
         )}
+
         <Header />
       </div>
 

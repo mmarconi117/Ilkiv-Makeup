@@ -5,6 +5,7 @@ const cors = require("cors");
 const sql = require("mssql");
 const bcrypt = require('bcrypt');
 const dbConfig = require('./dbConfig');
+const jwt = require("jsonwebtoken");
 // const chatbotRoute = require('./chatbotRoute');
 require('dotenv').config();
 
@@ -31,25 +32,63 @@ sql.connect(dbConfig)
     .then(() => console.log("Connected to the database"))
     .catch((err) => console.error("Database connection error:", err));
 
-app.post("/api/send-email", async (req, res) => {
-    const { name, email, message } = req.body;
 
-    const mailOptions = {
-        from: YAHOO_USER,
-        to: RECIPIENT_EMAIL,
-        replyTo: email,
-        subject: `New Message from ${name} via Website`,
-        text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
-    };
 
-    try {
-        await transporter.sendMail(mailOptions);
-        res.send("Email sent successfully");
-    } catch (error) {
-        console.error("Error sending email:", error);
-        res.status(500).send("Error sending email");
-    }
+const optionalVerifyJWT = (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) return next(); // Not logged in — just skip
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // Attach user info to req
+  } catch (err) {
+    // If token is invalid, skip silently
+  }
+
+  next();
+};
+
+app.post("/api/send-email", optionalVerifyJWT, async (req, res) => {
+  const { name, email: formEmail, message } = req.body;
+
+  if (!name || !message) {
+    return res.status(400).send("Name and message are required.");
+  }
+
+  // The recipient is always your email (your Yahoo account)
+  const recipientEmail = YAHOO_USER;
+
+  // Reply-To should be logged-in user’s email or the email from form
+  const replyToEmail = req.user?.email || formEmail;
+
+  if (!replyToEmail) {
+    return res.status(400).send("Reply-to email is required.");
+  }
+
+const mailOptions = {
+  from: YAHOO_USER,
+  to: YAHOO_USER,  // sending to yourself
+  subject: `New Message from ${name} via Website`,
+  text: `Name: ${name}\nEmail: ${formEmail || "Not provided"}\nMessage: ${message}`,
+};
+
+
+try {
+  await transporter.sendMail(mailOptions);
+  res.send("Email sent successfully");
+} catch (error) {
+  console.error("Error sending email:", error);
+  if (error.response) {
+    console.error("SMTP response:", error.response);
+  }
+  res.status(500).send("Error sending email");
+}
+
 });
+
+
+
 
 app.post("/api/register", async (req, res) => {
     const { username, password, email } = req.body;
@@ -91,49 +130,44 @@ app.post("/api/register", async (req, res) => {
 });
 
 app.post("/api/login", async (req, res) => {
-    const { username, password } = req.body;
+  const { loginId, password } = req.body;
 
-    if (!username || !password) {
-        return res.status(400).send("Username and password are required.");
+  if (!loginId || !password) {
+    return res.status(400).send("Username/email and password are required.");
+  }
+
+  try {
+    const normalizedInput = loginId.toLowerCase();
+
+    const result = await sql.query`
+      SELECT * FROM Users
+      WHERE LOWER(Username) = ${normalizedInput} OR LOWER(Email) = ${normalizedInput}
+    `;
+
+    const user = result.recordset[0];
+
+    if (!user) {
+      return res.status(401).send("User not found");
     }
 
-    try {
-        const normalizedInput = username.toLowerCase();
-
-        const result = await sql.query`
-  SELECT * FROM Users
-  WHERE LOWER(Username) = ${normalizedInput} OR LOWER(Email) = ${normalizedInput}`;
-
-        const user = result.recordset[0];
-
-        if (!user) {
-            return res.status(401).send("User not found");
-        }
-
-        const match = await bcrypt.compare(password, user.Password);
-        if (match) {
-            const mailOptions = {
-                from: YAHOO_USER,
-                to: RECIPIENT_EMAIL,
-                subject: "Login Notification",
-                text: `User ${username} has successfully logged in at ${new Date().toLocaleString()}.`
-            };
-
-            await transporter.sendMail(mailOptions);
-
-            res.send({
-                message: "Login successful",
-                username: user.Username,
-                email: user.Email
-            });
-        } else {
-            res.status(401).send("Incorrect password");
-        }
-    } catch (error) {
-        console.error("Error during login:", error);
-        res.status(500).send("Error during login");
+    const match = await bcrypt.compare(password, user.Password);
+    if (match) {
+      // login success
+      res.send({
+        message: "Login successful",
+        username: user.Username,
+        email: user.Email,
+      });
+    } else {
+      return res.status(401).send("Incorrect password");
     }
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).send("Error during login");
+  }
 });
+
+
 
 app.post("/api/forgot-password", async (req, res) => {
     const { email } = req.body;

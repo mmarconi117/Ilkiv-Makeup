@@ -1,26 +1,23 @@
-import { LOGIN_SUCCESS, LOGOUT, SET_USERNAME } from '../actions/loginAction'; // Corrected import statement
+import { LOGIN_SUCCESS, LOGOUT } from '../actions/loginAction';
 
 const initialState = {
-    loggedIn: false,
-    username: ''
+  loggedIn: false,
+  username: '',
+  email: '',
 };
 
 export default function loginReducer(state = initialState, action) {
-    switch (action.type) {
-        case LOGIN_SUCCESS:
-            return {
-                ...state,
-                loggedIn: true,
-                username: action.payload // Set the username here directly
-            };
-        case LOGOUT:
-            return initialState;
-        case SET_USERNAME:
-            return {
-                ...state,
-                username: action.payload // Save the username here as well
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        loggedIn: true,
+        username: action.payload.username,
+        email: action.payload.email,
+      };
+    case LOGOUT:
+      return initialState;
+    default:
+      return state;
+  }
 }

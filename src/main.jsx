@@ -9,14 +9,11 @@ import ResetPassword from './components/ResetPassword.jsx';
 import LoginPage from './components/LoginPage.jsx';
 import { loginSuccess } from './actions/loginAction';
 
-
-// Create a wrapper component to handle login success
 const LoginPageWrapper = () => {
   const dispatch = useDispatch();
 
-  const handleLoginSuccess = (username) => {
-    dispatch(loginSuccess(username));
-    // Add any other logic you want to execute on login successgit
+  const handleLoginSuccess = (userData) => {
+    dispatch(loginSuccess(userData));
   };
 
   return <LoginPage onLoginSuccess={handleLoginSuccess} />;

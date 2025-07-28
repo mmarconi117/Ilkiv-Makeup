@@ -102,9 +102,16 @@ header {
 
 
 .user-welcome {
-  color: rgb(245, 237, 243);
+  color: rgb(255, 255, 255);
   margin-right: 10px;
 }
+
+.welcome-message h1 {
+  color: #ffffff;
+}
+
+
+
 
 
 .logout-button{

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login, register, forgotPassword } from '../api';  // adjust path if needed
+import { login, register, forgotPassword } from '../api';
 
 const LoginPage = ({ onLoginSuccess }) => {
-  const [username, setUsername] = useState("");
+  const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -11,7 +11,7 @@ const LoginPage = ({ onLoginSuccess }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [isLogin, setIsLogin] = useState(true); // State to toggle between login and signup
+  const [isLogin, setIsLogin] = useState(true);
 
   const navigate = useNavigate();
 
@@ -20,64 +20,61 @@ const LoginPage = ({ onLoginSuccess }) => {
 
     try {
       if (isLogin) {
-        // Login request
-        const response = await login(username, password);
-        onLoginSuccess(response.data.username);
-        setErrorMessage("");
+        const response = await login(loginId, password);
+        console.log("Login response:", response.data);
 
-        // Navigate to the home page on successful login
-        navigate('/');
+        // Pass user data (username & email) to Redux
+        onLoginSuccess({
+          username: response.data.username,
+          email: response.data.email,
+        });
+
+        setErrorMessage("");
+        navigate('/');  // redirect after successful login
       } else {
-        // Signup request
         if (password !== confirmPassword) {
           setErrorMessage("Passwords do not match.");
           return;
         }
 
-        const response = await register(username, password, email);
-
+        await register(loginId, password, email);
         setSuccessMessage("Account created successfully! You can now log in.");
         setErrorMessage("");
-
-        // Switch to login after successful signup
         setIsLogin(true);
       }
     } catch (error) {
+      console.error("Login error:", error);
       if (error.response) {
-        console.error("Response data:", error.response.data);
-        setErrorMessage(error.response.data);
+        setErrorMessage(error.response.data.message || "Login failed.");
+      } else if (error.request) {
+        setErrorMessage("Server did not respond. Check backend.");
       } else {
-        setErrorMessage("An error occurred");
+        setErrorMessage("Unexpected error occurred.");
       }
     }
   };
 
-const handleForgotPassword = async () => {
-  const userEmail = prompt("Please enter your email address:");
-
-  if (!userEmail) {
-    setErrorMessage("Email is required for password reset.");
-    return;
-  }
-
-  try {
-    const response = await forgotPassword(userEmail);
-    setSuccessMessage("Password reset email sent.");
-    setErrorMessage("");
-  } catch (error) {
-    console.error("Forgot password error:", error.response?.data);
-    setErrorMessage(error.response?.data || "An error occurred.");
-  }
-};
-
-
+  const handleForgotPassword = async () => {
+    const userEmail = prompt("Please enter your email address:");
+    if (!userEmail) {
+      setErrorMessage("Email is required for password reset.");
+      return;
+    }
+    try {
+      await forgotPassword(userEmail);
+      setSuccessMessage("Password reset email sent.");
+      setErrorMessage("");
+    } catch (error) {
+      console.error("Forgot password error:", error.response?.data);
+      setErrorMessage(error.response?.data?.message || "An error occurred.");
+    }
+  };
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
     setErrorMessage("");
     setSuccessMessage("");
-    // Clear form fields when switching
-    setUsername("");
+    setLoginId("");
     setPassword("");
     setFirstName("");
     setLastName("");
@@ -97,135 +94,99 @@ const handleForgotPassword = async () => {
           {!isLogin && (
             <>
               <div>
-                <label className="block text-sm font-medium text-gray-700" htmlFor="firstName">
-                  First Name
-                </label>
+                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
                 <input
                   id="firstName"
-                  name="firstName"
                   type="text"
                   required
                   value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  onChange={e => setFirstName(e.target.value)}
+                  className="w-full px-3 py-2 mt-1 border rounded-md"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700" htmlFor="lastName">
-                  Last Name
-                </label>
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
                 <input
                   id="lastName"
-                  name="lastName"
                   type="text"
                   required
                   value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  onChange={e => setLastName(e.target.value)}
+                  className="w-full px-3 py-2 mt-1 border rounded-md"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700" htmlFor="email">
-                  Email
-                </label>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
                 <input
                   id="email"
-                  name="email"
                   type="email"
                   required
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  onChange={e => setEmail(e.target.value)}
+                  className="w-full px-3 py-2 mt-1 border rounded-md"
                 />
               </div>
             </>
           )}
           <div>
-            <label className="block text-sm font-medium text-gray-700" htmlFor="username">
-              Username
-            </label>
+            <label htmlFor="loginId" className="block text-sm font-medium text-gray-700">Username or Email</label>
             <input
-              id="username"
-              name="username"
+              id="loginId"
               type="text"
               required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              value={loginId}
+              onChange={e => setLoginId(e.target.value)}
+              className="w-full px-3 py-2 mt-1 border rounded-md"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700" htmlFor="password">
-              Password
-            </label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
             <input
               id="password"
-              name="password"
               type="password"
               required
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              onChange={e => setPassword(e.target.value)}
+              className="w-full px-3 py-2 mt-1 border rounded-md"
             />
           </div>
           {!isLogin && (
             <div>
-              <label className="block text-sm font-medium text-gray-700" htmlFor="confirmPassword">
-                Confirm Password
-              </label>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
               <input
                 id="confirmPassword"
-                name="confirmPassword"
                 type="password"
                 required
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                onChange={e => setConfirmPassword(e.target.value)}
+                className="w-full px-3 py-2 mt-1 border rounded-md"
               />
             </div>
           )}
-          <div>
-            <button
-              type="submit"
-              className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              {isLogin ? "Login" : "Sign Up"}
-            </button>
-          </div>
-          <div className="text-sm text-center text-gray-600 space-y-2">
-            {isLogin && (
-              <p
-                className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                onClick={handleForgotPassword}
-              >
-                Forgot password?
-              </p>
-            )}
-            {isLogin ? (
-              <>
-                Don't have an account?{" "}
-                <button
-                  type="button"
-                  onClick={toggleForm}
-                  className="text-blue-600 hover:text-blue-700"
-                >
-                  Sign up
-                </button>
-              </>
-            ) : (
-              <>
-                Already have an account?{" "}
-                <button
-                  type="button"
-                  onClick={toggleForm}
-                  className="text-blue-600 hover:text-blue-700"
-                >
-                  Login
-                </button>
-              </>
-            )}
-          </div>
+          <button
+            type="submit"
+            className="w-full py-2 mt-4 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          >
+            {isLogin ? "Login" : "Sign Up"}
+          </button>
         </form>
+        {isLogin && (
+          <p
+            onClick={handleForgotPassword}
+            className="text-blue-600 cursor-pointer mt-3 text-center"
+          >
+            Forgot password?
+          </p>
+        )}
+        <p className="mt-4 text-center">
+          {isLogin ? "Don't have an account? " : "Already have an account? "}
+          <button
+            onClick={toggleForm}
+            className="text-blue-600 hover:underline"
+          >
+            {isLogin ? "Sign up" : "Login"}
+          </button>
+        </p>
       </div>
     </div>
   );
