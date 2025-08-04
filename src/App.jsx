@@ -42,7 +42,6 @@ function App() {
 
   const [fadeIn, setFadeIn] = useState(false);
 
-  // Use a ref to hold interval ID so it can be cleared properly
   const autoplayIntervalRef = useRef(null);
 
   // Autoplay interval setup & cleanup
