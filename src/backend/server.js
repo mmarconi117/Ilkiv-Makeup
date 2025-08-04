@@ -28,9 +28,14 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-sql.connect(dbConfig)
+
+
+if (process.env.USE_DATABASE === 'true') {
+  sql.connect(dbConfig)
     .then(() => console.log("Connected to the database"))
     .catch((err) => console.error("Database connection error:", err));
+}
+
 
 
 
@@ -48,6 +53,15 @@ const optionalVerifyJWT = (req, res, next) => {
 
   next();
 };
+
+// Middleware to disable database routes when USE_DATABASE is false
+const checkDbEnabled = (req, res, next) => {
+  if (process.env.USE_DATABASE !== 'true') {
+    return res.status(503).send("Database is disabled in alpha mode.");
+  }
+  next();
+};
+
 
 app.post("/api/send-email", optionalVerifyJWT, async (req, res) => {
   const { name, email: formEmail, message } = req.body;
@@ -90,7 +104,7 @@ try {
 
 
 
-app.post("/api/register", async (req, res) => {
+app.post("/api/register", checkDbEnabled, async (req, res) => {
     const { username, password, email } = req.body;
 
     if (!username || !password || !email) {
@@ -129,7 +143,7 @@ app.post("/api/register", async (req, res) => {
     }
 });
 
-app.post("/api/login", async (req, res) => {
+app.post("/api/login", checkDbEnabled, async (req, res) => {
   const { loginId, password } = req.body;
 
   if (!loginId || !password) {
@@ -169,7 +183,7 @@ app.post("/api/login", async (req, res) => {
 
 
 
-app.post("/api/forgot-password", async (req, res) => {
+app.post("/api/forgot-password", checkDbEnabled, async (req, res) => {
     const { email } = req.body;
 
     if (!email) {
@@ -238,7 +252,7 @@ app.post("/api/forgot-password", async (req, res) => {
 });
 
 
-app.post("/api/reset-password", async (req, res) => {
+app.post("/api/reset-password", checkDbEnabled, async (req, res) => {
     const { token, newPassword } = req.body;
 
     if (!token || !newPassword) {
