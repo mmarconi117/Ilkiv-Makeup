@@ -124,7 +124,7 @@ function App() {
           </p>
         </div>
 
-        {loggedIn ? (
+        {/* {loggedIn ? (
           <div className="welcome-message">
             <h1>Welcome, {username || 'Guest'}!</h1>
             <button className="logout-button" onClick={handleLogout}>
@@ -142,7 +142,7 @@ function App() {
               </button>
             </div>
           </div>
-        )}
+        )} */}
 
         <Header />
       </div>
