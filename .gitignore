@@ -1,3 +1,6 @@
+# Ignore ReusableBECode.jsx
+ReusableBECode.jsx
+
 # Logs
 logs
 *.log
