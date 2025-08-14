@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base URL — switch here
-export const API_BASE_URL = 'http://localhost:5000';
+export const API_BASE_URL = 'https://ilkiv-makeup-be.vercel.app';
 // export const API_BASE_URL = 'https://your-vercel-backend-url';
 
 // LOGIN
