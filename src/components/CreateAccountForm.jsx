@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from '../api'; // Your register API
+import { register } from '../../api/api'; // Your register API
 import { loginSuccess, logout } from '../actions/loginAction';
 
 export default function CreateAccountForm() {

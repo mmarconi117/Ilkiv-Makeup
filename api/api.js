@@ -41,11 +41,12 @@ export const forgotPassword = (email) => {
   return axios.post(`${API_BASE_URL}/api/forgot-password`, { email });
 };
 
+// CONTACT FORM — SEND EMAIL (no token needed)
 // CONTACT FORM — SEND EMAIL
-export const sendEmail = (name, email, message, token = null) => {
-  const headers = token
-    ? { Authorization: `Bearer ${token}` }
-    : {};
-
-  return axios.post(`${API_BASE_URL}/api/send-email`, { name, email, message }, { headers });
+export const sendEmail = (name, email, message) => {
+  return axios.post(`${API_BASE_URL}/api/send-email`, {
+    name,
+    email,
+    message
+  });
 };

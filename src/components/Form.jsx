@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { sendEmail } from "../api";
+import { sendEmail } from "../../api/api";
 
 export default function Form() {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState(""); // Only used if not logged in
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -11,18 +11,13 @@ export default function Form() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const token = localStorage.getItem("token");
-    const userEmail = localStorage.getItem("userEmail"); // Set this at login
-
-    const finalEmail = token ? userEmail : email;
-
-    if (!finalEmail) {
+    if (!email) {
       setErrorMessage("Email is required.");
       return;
     }
 
     try {
-      await sendEmail(name, finalEmail, message, token);
+      await sendEmail(name, email, message);
 
       setSuccessMessage("Email sent successfully!");
       setErrorMessage("");
@@ -53,18 +48,16 @@ export default function Form() {
           />
         </div>
 
-        {!localStorage.getItem("token") && (
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Email:</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded"
-            />
-          </div>
-        )}
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-1">Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded"
+          />
+        </div>
 
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Message:</label>

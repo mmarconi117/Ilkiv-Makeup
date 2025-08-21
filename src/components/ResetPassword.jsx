@@ -1,7 +1,7 @@
 // src/pages/ResetPassword.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_BASE_URL } from '../api';  // import your API base url
+// import { API_BASE_URL } from '../api';  // import your API base url
 
 const ResetPassword = () => {
   const [token, setToken] = useState('');
