@@ -8,7 +8,7 @@ html {
 
 @media (max-width: 768px) {
   .me {
-    background-image: url('./images/gyp.jpg'); /* mobile image */
+    background-image: url('./images/gyp.jpg');
   }
   .center-container {
     /* Your container */
