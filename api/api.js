@@ -3,7 +3,6 @@ import axios from 'axios';
 // Base URL — switch here
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-// LOGIN
 export const login = async (loginId, password) => {
   const response = await axios.post(`${API_BASE_URL}/api/login`, {
     loginId,
