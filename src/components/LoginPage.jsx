@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { login, register, forgotPassword } from '../api';
 
 const LoginPage = ({ onLoginSuccess }) => {
   const [loginId, setLoginId] = useState("");
