@@ -22,14 +22,13 @@ const LoginPage = ({ onLoginSuccess }) => {
         const response = await login(loginId, password);
         console.log("Login response:", response.data);
 
-        // Pass user data (username & email) to Redux
         onLoginSuccess({
           username: response.data.username,
           email: response.data.email,
         });
 
         setErrorMessage("");
-        navigate('/');  // redirect after successful login
+        navigate('/');
       } else {
         if (password !== confirmPassword) {
           setErrorMessage("Passwords do not match.");
