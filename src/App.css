@@ -102,7 +102,6 @@ html {
   right: 0;
   bottom: 0;
   background-color: rgba(59, 49, 49, 0.5);
-  /* 0.5 = 50% dim */
   z-index: 0;
 }
 
