@@ -102,14 +102,14 @@ function App() {
     }
   };
 
-  const handleNavigateToLogin = () => {
-    navigate('/login');
-  };
+  // const handleNavigateToLogin = () => {
+  //   navigate('/login');
+  // };
 
-  const handleLogout = () => {
-    dispatch(logout());
-    localStorage.removeItem('userEmail');
-  };
+  // const handleLogout = () => {
+  //   dispatch(logout());
+  //   localStorage.removeItem('userEmail');
+  // };
 
   return (
     <>
