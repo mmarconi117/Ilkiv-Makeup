@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
 
 });
 
-// Configure redux-persist
+
 const persistConfig = {
   key: 'root',
   storage,
