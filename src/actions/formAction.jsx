@@ -1,4 +1,3 @@
-// formActions.jsx
 export const SHOW_FORM = "SHOW_FORM";
 export const HIDE_FORM = "HIDE_FORM";
 export const SHOW_CREATE = "SHOW_CREATE";
