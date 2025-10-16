@@ -6,22 +6,7 @@ html {
   overflow-x: hidden;
 }
 
-@media (max-width: 768px) {
-  .me {
-    background-image: url('./images/innaworking.jpg');
-  }
-  .center-container {
-    /* Your container */
-    width: 100vw;
-    /* 100% of the viewport width */
-    margin: 0;
-    /* Remove default margin */
-    padding: 0;
-    /* Remove default padding */
-    box-sizing: border-box;
 
-  }
-}
 
 .carousel-container {
   padding: 0;
@@ -422,21 +407,6 @@ header {
     overflow-x: hidden;
   }
 
-  .center-container {
-    background-image: url('./images/innaworking.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0;
-    margin: 0;
-  }
-
   header {
     text-align: center;
     font-size: 1.8rem;
@@ -453,6 +423,7 @@ header {
     height: 40vh;
   }
 
+  /* Me image */
   .me {
     flex-direction: column;
     align-items: center;
@@ -465,6 +436,7 @@ header {
     border-radius: 10px;
   }
 
+  /* Description box */
   .description-box {
     width: 90%;
     font-size: 1.2rem;
@@ -473,6 +445,7 @@ header {
     text-align: center;
   }
 
+  /* Buttons */
   .open-form-button,
   .open-create-button,
   .open-login-button,
@@ -485,6 +458,7 @@ header {
     padding: 12px;
   }
 
+  /* Under car title */
   .undercar-title {
     font-size: 2.5rem;
     text-align: center;
@@ -498,19 +472,28 @@ header {
     padding: 0;
   }
 
+  /* Under car sections */
   .undercar-middle,
   .undercar-right,
   .undercar-left {
     padding: 10px;
   }
 
-  .undercar-middle img,
+  /* Middle image (undermiddle) */
+  .undercar-middle img {
+    width: 100%;
+    height: auto;
+    margin: 20px 0;
+  }
+
+  /* Right video (wedding.MOV) */
   .undercar-right video {
     width: 100%;
     height: auto;
     margin: 20px 0;
   }
 
+  /* Left text */
   .leftp {
     font-size: 1rem;
     line-height: 1.4;
@@ -518,15 +501,13 @@ header {
     padding: 0 10px;
   }
 
+  /* Carousel arrows */
   .prev, .next {
     padding: 6px 10px;
     font-size: 0.9rem;
   }
-
-  .center-container::before {
-    background-color: rgba(59, 49, 49, 0.6);
-  }
 }
+
 
 /* 🔹 Tiny phones (under 360px wide) */
 @media (max-width: 360px) {
