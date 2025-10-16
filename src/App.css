@@ -8,7 +8,7 @@ html {
 
 @media (max-width: 768px) {
   .me {
-    background-image: url('./images/gyp.jpg');
+    background-image: url('./images/innaworking.jpg');
   }
   .center-container {
     /* Your container */
@@ -414,5 +414,133 @@ header {
 
   .leftp {
     font-size: large;
+  }
+}
+
+@media (max-width: 768px) {
+  body, html {
+    overflow-x: hidden;
+  }
+
+  .center-container {
+    background-image: url('./images/innaworking.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+  }
+
+  header {
+    text-align: center;
+    font-size: 1.8rem;
+    padding: 1rem;
+  }
+
+  .carousel-container {
+    flex-direction: column;
+    margin: 20px 0;
+  }
+
+  .carousel {
+    width: 90%;
+    height: 40vh;
+  }
+
+  .me {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+  }
+
+  .me img {
+    width: 90%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .description-box {
+    width: 90%;
+    font-size: 1.2rem;
+    margin: 20px auto 60px auto;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .open-form-button,
+  .open-create-button,
+  .open-login-button,
+  .logout-button {
+    width: 80%;
+    max-width: 300px;
+    margin: 10px auto;
+    display: block;
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .undercar-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .undercartitle-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+  }
+
+  .undercar-middle,
+  .undercar-right,
+  .undercar-left {
+    padding: 10px;
+  }
+
+  .undercar-middle img,
+  .undercar-right video {
+    width: 100%;
+    height: auto;
+    margin: 20px 0;
+  }
+
+  .leftp {
+    font-size: 1rem;
+    line-height: 1.4;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .prev, .next {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+
+  .center-container::before {
+    background-color: rgba(59, 49, 49, 0.6);
+  }
+}
+
+/* 🔹 Tiny phones (under 360px wide) */
+@media (max-width: 360px) {
+  .undercar-title {
+    font-size: 2rem;
+  }
+
+  .description-box {
+    font-size: 1rem;
+  }
+
+  .open-form-button,
+  .open-create-button {
+    font-size: 0.9rem;
+    padding: 10px;
   }
 }
