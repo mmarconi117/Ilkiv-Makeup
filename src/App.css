@@ -414,8 +414,11 @@ header {
   }
 
   .carousel-container {
+    display: flex;
     flex-direction: column;
-    margin: 20px 0;
+    align-items: center;
+    margin: 20px auto;
+    width: 100%;
   }
 
   .carousel {
@@ -423,29 +426,68 @@ header {
     height: 40vh;
   }
 
-  /* Me image */
-  .me {
-    flex-direction: column;
-    align-items: center;
-    margin-top: 100px;
+  .prev, .next {
+    padding: 6px 10px;
+    font-size: 0.9rem;
   }
 
-  .me img {
-    width: 90%;
-    height: auto;
-    border-radius: 10px;
-  }
-
-  /* Description box */
   .description-box {
     width: 90%;
     font-size: 1.2rem;
-    margin: 20px auto 60px auto;
+    margin: 20px auto 40px auto;
     padding: 10px;
     text-align: center;
   }
 
-  /* Buttons */
+  .undercartitle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .undercar-left,
+  .undercar-middle,
+  .undercar-right {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .undercar-left h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .leftp {
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 0 1rem;
+    text-align: center;
+  }
+
+  .undercar-middle img,
+  .undercar-right video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .form-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  .form-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  /* Buttons general */
   .open-form-button,
   .open-create-button,
   .open-login-button,
@@ -458,55 +500,20 @@ header {
     padding: 12px;
   }
 
-  /* Under car title */
+  /* Title */
   .undercar-title {
     font-size: 2.5rem;
     text-align: center;
     margin-top: 40px;
   }
 
-  .undercartitle-container {
-    flex-direction: column;
-    align-items: center;
+  /* Footer spacing */
+  .footer {
+    margin-top: 40px;
     text-align: center;
-    padding: 0;
-  }
-
-  /* Under car sections */
-  .undercar-middle,
-  .undercar-right,
-  .undercar-left {
-    padding: 10px;
-  }
-
-  /* Middle image (undermiddle) */
-  .undercar-middle img {
-    width: 100%;
-    height: auto;
-    margin: 20px 0;
-  }
-
-  /* Right video (wedding.MOV) */
-  .undercar-right video {
-    width: 100%;
-    height: auto;
-    margin: 20px 0;
-  }
-
-  /* Left text */
-  .leftp {
-    font-size: 1rem;
-    line-height: 1.4;
-    text-align: center;
-    padding: 0 10px;
-  }
-
-  /* Carousel arrows */
-  .prev, .next {
-    padding: 6px 10px;
-    font-size: 0.9rem;
   }
 }
+
 
 
 /* 🔹 Tiny phones (under 360px wide) */
