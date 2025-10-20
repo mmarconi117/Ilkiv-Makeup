@@ -421,10 +421,19 @@ header {
     width: 100%;
   }
 
-  .carousel {
-    width: 90%;
-    height: 40vh;
-  }
+.carousel {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+
+.carousel img {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
 
   .prev, .next {
     padding: 6px 10px;
