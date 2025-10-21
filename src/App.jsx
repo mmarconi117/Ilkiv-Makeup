@@ -32,7 +32,6 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Redux selectors — adjust according to your store structure
   const currentImageIndex = useSelector(state => state.current.currentImageIndex);
   const isFormVisible = useSelector(state => state.form.isFormVisible);
 
