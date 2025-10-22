@@ -35,7 +35,6 @@ function App() {
   const currentImageIndex = useSelector(state => state.current.currentImageIndex);
   const isFormVisible = useSelector(state => state.form.isFormVisible);
 
-  // Make sure these match your Redux slice keys!
   const loggedIn = useSelector(state => state.user.loggedIn);
   const username = useSelector(state => state.user.username);
 
