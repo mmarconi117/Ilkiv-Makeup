@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from '../../api/api'; // Your register API
-import { loginSuccess, logout } from '../actions/loginAction';
+import { register } from "../../api/api";
+import { loginSuccess, logout } from "../actions/loginAction";
 
 export default function CreateAccountForm() {
   const dispatch = useDispatch();
-  const loggedIn = useSelector(state => state.login.loggedIn);
-  const username = useSelector(state => state.login.username);
-  const email = useSelector(state => state.login.email);
+  const loggedIn = useSelector((state) => state.login.loggedIn);
+  const username = useSelector((state) => state.login.username);
+  const email = useSelector((state) => state.login.email);
 
   const [fname, setfName] = useState("");
   const [lname, setlName] = useState("");
@@ -21,13 +21,20 @@ export default function CreateAccountForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // ✅ client-side validation
+    if (usernameInput.length > 12) {
+      setErrorMessage("Username must be at less than 12 characters long.");
+      return;
+    } else if (usernameInput.length < 4) {
+      setErrorMessage("Username must be at least 4 characters long.");
+      return;
+    }
     if (password !== confirmPassword) {
-      setErrorMessage("Passwords do not match");
+      setErrorMessage("Passwords do not match.");
       return;
     }
 
     try {
-      // Pass all fields to register API as needed
       const response = await register({
         firstName: fname,
         lastName: lname,
@@ -36,16 +43,17 @@ export default function CreateAccountForm() {
         email: emailInput,
       });
 
-      // Dispatch loginSuccess with username and email from inputs or response
-      dispatch(loginSuccess({
-        username: usernameInput,
-        email: emailInput,
-      }));
+      dispatch(
+        loginSuccess({
+          username: usernameInput,
+          email: emailInput,
+        })
+      );
 
       setSuccessMessage("Account created successfully!");
       setErrorMessage("");
 
-      // Clear form
+      // clear form
       setfName("");
       setlName("");
       setUsernameInput("");
@@ -53,7 +61,7 @@ export default function CreateAccountForm() {
       setConfirmPassword("");
       setEmailInput("");
     } catch (error) {
-      console.error("Error creating account", error);
+      console.error("Error creating account:", error);
       if (error.response && error.response.data) {
         setErrorMessage(error.response.data);
       } else {
@@ -72,7 +80,9 @@ export default function CreateAccountForm() {
     <div>
       {loggedIn ? (
         <div>
-          <p className="text-white mt-2">Welcome, {username} ({email})!</p>
+          <p className="text-white mt-2">
+            Welcome, {username} ({email})!
+          </p>
           <button
             onClick={handleLogout}
             className="mt-4 w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-md shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
@@ -86,7 +96,10 @@ export default function CreateAccountForm() {
           className="max-w-lg mx-auto pl-4 pr-10 bg-white rounded-lg shadow-md"
         >
           <div className="mb-4">
-            <label htmlFor="fname" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="fname"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               First Name:
             </label>
             <input
@@ -100,7 +113,10 @@ export default function CreateAccountForm() {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="lname" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="lname"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Last Name:
             </label>
             <input
@@ -114,7 +130,10 @@ export default function CreateAccountForm() {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Email:
             </label>
             <input
@@ -127,8 +146,12 @@ export default function CreateAccountForm() {
             />
           </div>
 
+          {/* ✅ username only */}
           <div className="mb-4">
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Username:
             </label>
             <input
@@ -136,12 +159,17 @@ export default function CreateAccountForm() {
               value={usernameInput}
               onChange={(e) => setUsernameInput(e.target.value)}
               required
+              minLength={4}
+              maxLength={12}
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Password:
             </label>
             <input
@@ -155,7 +183,10 @@ export default function CreateAccountForm() {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Confirm Password:
             </label>
             <input
@@ -176,6 +207,7 @@ export default function CreateAccountForm() {
           </button>
         </form>
       )}
+
       {successMessage && (
         <p className="text-green-500 mt-2">Success: {successMessage}</p>
       )}

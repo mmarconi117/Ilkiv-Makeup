@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { login, register, forgotPassword } from '../../api/api';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { login, register, forgotPassword } from "../../api/api";
 
 const LoginPage = ({ onLoginSuccess }) => {
   const [loginId, setLoginId] = useState("");
@@ -20,6 +20,7 @@ const LoginPage = ({ onLoginSuccess }) => {
 
     try {
       if (isLogin) {
+        // ---------- LOGIN ----------
         const response = await login(loginId, password);
         console.log("Login response:", response.data);
 
@@ -29,22 +30,38 @@ const LoginPage = ({ onLoginSuccess }) => {
         });
 
         setErrorMessage("");
-        navigate('/');
+        navigate("/");
       } else {
+        // ---------- SIGN-UP ----------
         if (password !== confirmPassword) {
           setErrorMessage("Passwords do not match.");
           return;
         }
+        if (loginId.length > 12) {
+          setErrorMessage("Username must be at less than 12 characters long.");
+          return;
+        } else if (loginId.length < 4) {
+          setErrorMessage("Username must be at least 4 characters long.");
+          return;
+        }
 
-        await register(loginId, password, email);
+        // Send full payload expected by backend
+        await register({
+          firstName,
+          lastName,
+          username: loginId,
+          password,
+          email,
+        });
+
         setSuccessMessage("Account created successfully! You can now log in.");
         setErrorMessage("");
         setIsLogin(true);
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Login error:", error.response?.data || error.message);
       if (error.response) {
-        setErrorMessage(error.response.data.message || "Login failed.");
+        setErrorMessage(error.response.data || "Login failed.");
       } else if (error.request) {
         setErrorMessage("Server did not respond. Check backend.");
       } else {
@@ -87,81 +104,121 @@ const LoginPage = ({ onLoginSuccess }) => {
         <h2 className="text-2xl font-bold text-center text-gray-900">
           {isLogin ? "Login" : "Sign Up"}
         </h2>
+
         {successMessage && <p className="text-green-500">{successMessage}</p>}
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+
         <form className="space-y-4" onSubmit={handleSubmit}>
           {!isLogin && (
             <>
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  First Name
+                </label>
                 <input
                   id="firstName"
                   type="text"
                   required
                   value={firstName}
-                  onChange={e => setFirstName(e.target.value)}
+                  onChange={(e) => setFirstName(e.target.value)}
                   className="w-full px-3 py-2 mt-1 border rounded-md"
                 />
               </div>
+
               <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
+                <label
+                  htmlFor="lastName"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Last Name
+                </label>
                 <input
                   id="lastName"
                   type="text"
                   required
                   value={lastName}
-                  onChange={e => setLastName(e.target.value)}
+                  onChange={(e) => setLastName(e.target.value)}
                   className="w-full px-3 py-2 mt-1 border rounded-md"
                 />
               </div>
+
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email
+                </label>
                 <input
                   id="email"
                   type="email"
                   required
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-3 py-2 mt-1 border rounded-md"
                 />
               </div>
             </>
           )}
+
           <div>
-            <label htmlFor="loginId" className="block text-sm font-medium text-gray-700">Username or Email</label>
+            <label
+              htmlFor="loginId"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Username
+            </label>
             <input
               id="loginId"
               type="text"
               required
               value={loginId}
-              onChange={e => setLoginId(e.target.value)}
+              minLength={4}
+              maxLength={12}
+              onChange={(e) => setLoginId(e.target.value)}
               className="w-full px-3 py-2 mt-1 border rounded-md"
             />
           </div>
+
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
             <input
               id="password"
               type="password"
               required
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 mt-1 border rounded-md"
             />
           </div>
+
           {!isLogin && (
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Confirm Password
+              </label>
               <input
                 id="confirmPassword"
                 type="password"
                 required
                 value={confirmPassword}
-                onChange={e => setConfirmPassword(e.target.value)}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full px-3 py-2 mt-1 border rounded-md"
               />
             </div>
           )}
+
           <button
             type="submit"
             className="w-full py-2 mt-4 bg-blue-600 text-white rounded-md hover:bg-blue-700"
@@ -169,6 +226,7 @@ const LoginPage = ({ onLoginSuccess }) => {
             {isLogin ? "Login" : "Sign Up"}
           </button>
         </form>
+
         {isLogin && (
           <p
             onClick={handleForgotPassword}
@@ -177,6 +235,7 @@ const LoginPage = ({ onLoginSuccess }) => {
             Forgot password?
           </p>
         )}
+
         <p className="mt-4 text-center">
           {isLogin ? "Don't have an account? " : "Already have an account? "}
           <button
